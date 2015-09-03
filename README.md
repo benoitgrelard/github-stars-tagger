@@ -1,2 +1,2 @@
 # github-stars-organiser
-A chrome extension to organise your github starred repos
+A Google Chrome extension to organise your github starred repositories
