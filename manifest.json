@@ -11,7 +11,10 @@
 			],
 			"js": [
 				"utils.js",
-				"content-script.js"
+				"tag-line-view.js",
+				"tag-sidebar-view.js",
+				"model.js",
+				"main.js"
 			],
 			"css": [
 				"styles.css"

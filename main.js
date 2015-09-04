@@ -1,8 +1,8 @@
-var model = {
+var model = new Model({
 	'metafizzy/flickity': ['js', 'carousel', 'gallery', 'touch', 'responsive', 'animation'],
 	'michaelvillar/dynamics.js': ['js', 'animation'],
 	'cyclejs/cycle-core': ['js']
-};
+});
 
 initTagLines(model);
 initTagSidebar(model);
@@ -26,22 +26,9 @@ function initTagLines(model) {
 			if (tagLineExists) { return; }
 
 			var repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
-
-			var tagLineElem = document.createElement('p');
-			tagLineElem.classList.add('repo-list-meta', 'gso-tag-line');
-			tagLineElem.innerHTML = [
-				'<span class="octicon octicon-tag"></span>',
-				'<span>' + deserializeTags( getTagsForRepo(repoId) ) + '</span>'
-			].join('\n');
-			starredRepoElem.appendChild(tagLineElem);
-		}
-
-		function getTagsForRepo(repoId) {
-			return model[repoId] || [];
-		}
-
-		function deserializeTags(tags) {
-			return tags.join(', ') || '...';
+			var view = new TagLineView(model, repoId);
+			view.render();
+			starredRepoElem.appendChild(view.getElement());
 		}
 	}
 }
@@ -60,28 +47,9 @@ function initTagSidebar(model) {
 		if (tagSidebarExists) { return; }
 
 		var lastSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:last-of-type');
-
-		var tagSidebarElem = document.createElement('div');
-		tagSidebarElem.classList.add('gso-tag-sidebar');
-
-		tagSidebarElem.innerHTML = [
-			'<h3>Tags</h3>',
-			'<ul class="filter-list small">',
-				getSortedPivotedModel(model).map(function(tagModel) {
-					return [
-						'<li>',
-							'<span class="filter-item">',
-								tagModel.name,
-								'<span class="count">' + tagModel.repos.length + '</span>',
-							'</span>',
-						'</li>'
-					].join('\n');
-				}).join('\n'),
-			'</ul>',
-			'<hr />'
-		].join('\n');
-
-		insertAfter(tagSidebarElem, lastSidebarSeparatorElem);
+		var view = new TagSidebarView(model);
+		view.render();
+		insertAfter(view.getElement(), lastSidebarSeparatorElem);
 	}
 }
 
@@ -95,31 +63,4 @@ function onAjaxPageRefreshed(callback) {
 	});
 	var config = { childList: true };
 	observer.observe(ajaxContentElem, config);
-}
-
-function pivotModel(model) {
-	var pivotedModel = {};
-
-	for (var repoId in model) {
-		model[repoId].forEach(pivot);
-	}
-
-	return pivotedModel;
-
-	function pivot(tag) {
-		if (!(tag in pivotedModel)) { pivotedModel[tag] = []; }
-		pivotedModel[tag].push(repoId);
-	}
-}
-
-function getSortedPivotedModel(model) {
-	var pivotedModel = pivotModel(model);
-	return Object.keys(pivotedModel).map(function(tag) {
-		return {
-			name: tag,
-			repos: pivotedModel[tag]
-		};
-	}).sort(function(tagModel1, tagModel2) {
-		return tagModel2.repos.length - tagModel1.repos.length;
-	});
 }
