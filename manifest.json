@@ -12,6 +12,9 @@
 			"js": [
 				"utils.js",
 				"content-script.js"
+			],
+			"css": [
+				"styles.css"
 			]
 		}
 	],
