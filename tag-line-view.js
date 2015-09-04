@@ -8,7 +8,7 @@ var TagLineViewProto = TagLineView.prototype;
 
 TagLineViewProto.createElement = function() {
 	var tagLineElem = document.createElement('p');
-	tagLineElem.classList.add('repo-list-meta', 'gso-tag-line');
+	tagLineElem.classList.add('repo-list-meta', 'GsoTagLine');
 	return tagLineElem;
 };
 

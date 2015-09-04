@@ -22,7 +22,7 @@ function initTagLines(model) {
 		forEach(starredRepoElems, function(starredRepoElem) { addTagLine(starredRepoElem); });
 
 		function addTagLine(starredRepoElem) {
-			var tagLineExists = starredRepoElem.querySelector('.gso-tag-line');
+			var tagLineExists = starredRepoElem.querySelector('.GsoTagLine');
 			if (tagLineExists) { return; }
 
 			var repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
@@ -43,7 +43,7 @@ function initTagSidebar(model) {
 
 	function addSidebar() {
 		var ajaxContentElem = document.getElementById('js-pjax-container');
-		var tagSidebarExists = ajaxContentElem.querySelector('.gso-tag-sidebar');
+		var tagSidebarExists = ajaxContentElem.querySelector('.GsoTagSidebar');
 		if (tagSidebarExists) { return; }
 
 		var lastSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:last-of-type');

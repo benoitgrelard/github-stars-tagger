@@ -1,3 +1,51 @@
-.gso-tag-line {
-	/*margin-left: -17px;*/
+/**
+ * Tag line
+ */
+.GsoTagLine {}
+
+
+
+/**
+ * Tag sidebar
+ */
+.GsoTagSidebar {}
+
+.GsoTagSidebar-label {
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+.GsoTagSidebar-checkbox {
+	display: none;
+}
+
+
+
+/**
+ * Repo list
+ */
+.GsoRepoList {
+	display: none;
+	list-style: none;
+}
+
+.GsoRepoList-item {
+	display: block;
+	padding: 4px 10px;
+
+	margin: 0 0 2px;
+
+	font-size: 12px;
+
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.GsoRepoList-item a {
+	display: block;
+}
+
+.GsoTagSidebar-checkbox:checked + .GsoRepoList {
+	display: block;
 }
