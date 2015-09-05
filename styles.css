@@ -2,6 +2,10 @@
  * Tag line
  */
 .GsoTagLine {}
+.GsoTagLine-tags { display: inline; }
+.GsoTagLine-editableTags { display: none; }
+.GsoTagLine.-isEditing .GsoTagLine-tags { display: none; }
+.GsoTagLine.-isEditing .GsoTagLine-editableTags { display: inline-block; }
 
 
 
