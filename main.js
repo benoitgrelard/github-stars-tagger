@@ -20,7 +20,7 @@ function initTagLines(model) {
 	function addTagLines() {
 		var starredRepoElems = document.querySelectorAll('.repo-list-item');
 
-		forEach(starredRepoElems, function(starredRepoElem) { addTagLine(starredRepoElem); });
+		utils.forEach(starredRepoElems, function(starredRepoElem) { addTagLine(starredRepoElem); });
 
 		function addTagLine(starredRepoElem) {
 			var repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);

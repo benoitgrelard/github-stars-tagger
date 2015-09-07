@@ -25,7 +25,7 @@ Tags.prototype.setTagsForRepo = function(repoId, unserializedTags) {
 	if (serializedTags.length === 0) {
 		delete this.data[repoId];
 	} else {
-		this.data[repoId] = unique(serializedTags);
+		this.data[repoId] = utils.unique(serializedTags);
 	}
 
 	this.emit('change');

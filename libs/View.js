@@ -43,5 +43,5 @@ View.prototype.injectInto = function(parentElem) {
 };
 
 View.prototype.injectAfter = function(siblingElem) {
-	insertAfter(this.getElement(), siblingElem);
+	utils.insertAfter(this.getElement(), siblingElem);
 };
