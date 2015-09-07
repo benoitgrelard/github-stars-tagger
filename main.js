@@ -1,9 +1,16 @@
-// TODO: purge unstarred repos (based of real github api)
-var tagsModel = new Tags({
+
+var tagsData = {
 	'metafizzy/flickity': ['js', 'carousel', 'gallery', 'touch', 'responsive', 'animation'],
 	'michaelvillar/dynamics.js': ['js', 'animation'],
 	'cyclejs/cycle-core': ['js']
-});
+};
+
+/*chrome.storage.local.set(tagsData, function(data) {
+	console.log(data);
+});*/
+
+// TODO: purge unstarred repos (based of real github api)
+var tagsModel = new Tags(tagsData);
 
 initTagLines(tagsModel);
 initTagSidebar(tagsModel);

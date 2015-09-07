@@ -25,5 +25,11 @@
 			]
 		}
 	],
+	"permissions": [
+		"storage"
+	],
+	"background": {
+		"page": "bg.html"
+	},
 	"manifest_version": 2
 }
