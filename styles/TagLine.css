@@ -1,0 +1,22 @@
+/**
+ * Tag line
+ */
+.GsoTagLine {}
+
+.GsoTagLine-icon {}
+.GsoTagLine--noTags .GsoTagLine-icon { opacity: 0.35; }
+
+.GsoTagLine-tags {
+	display: inline-block;
+	min-width: 20%;
+	cursor: pointer;
+}
+.GsoTagLine-tags:hover { text-decoration: underline; }
+.GsoTagLine.-is-editing .GsoTagLine-tags { display: none; }
+.GsoTagLine--noTags .GsoTagLine-tags { opacity: 0.35; }
+
+.GsoTagLine-editableTags {
+	display: none;
+	min-width: 50%;
+}
+.GsoTagLine.-is-editing .GsoTagLine-editableTags { display: inline-block; }

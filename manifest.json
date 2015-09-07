@@ -10,15 +10,18 @@
 				"https://github.com/stars*"
 			],
 			"js": [
-				"utils.js",
-				"event-emitter.js",
-				"model.js",
-				"tag-line-view.js",
-				"tag-sidebar-view.js",
+				"libs/utils.js",
+				"libs/EventEmitter.js",
+				"libs/Model.js",
+				"libs/View.js",
+				"models/Tags.js",
+				"views/TagLineView.js",
+				"views/TagSidebarView.js",
 				"main.js"
 			],
 			"css": [
-				"styles.css"
+				"styles/TagLine.css",
+				"styles/TagSidebar.css"
 			]
 		}
 	],

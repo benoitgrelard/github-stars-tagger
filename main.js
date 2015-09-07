@@ -1,12 +1,12 @@
 // TODO: purge unstarred repos (based of real github api)
-var model = new Model({
+var tagsModel = new Tags({
 	'metafizzy/flickity': ['js', 'carousel', 'gallery', 'touch', 'responsive', 'animation'],
 	'michaelvillar/dynamics.js': ['js', 'animation'],
 	'cyclejs/cycle-core': ['js']
 });
 
-initTagLines(model);
-initTagSidebar(model);
+initTagLines(tagsModel);
+initTagSidebar(tagsModel);
 
 
 function initTagLines(model) {
@@ -31,7 +31,7 @@ function initTagLines(model) {
 			var oldTagLineElem = starredRepoElem.querySelector('.' + view.getRootClass());
 			if (oldTagLineElem) { oldTagLineElem.remove(); }
 
-			starredRepoElem.appendChild(view.getElement());
+			view.injectInto(starredRepoElem);
 		}
 	}
 }
@@ -52,8 +52,8 @@ function initTagSidebar(model) {
 		var oldTagSidebarElem = ajaxContentElem.querySelector('.' + view.getRootClass());
 		if (oldTagSidebarElem) { oldTagSidebarElem.remove(); }
 
-		var lastSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:last-of-type');
-		insertAfter(view.getElement(), lastSidebarSeparatorElem);
+		var firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
+		view.injectAfter(firstSidebarSeparatorElem);
 	}
 }
 

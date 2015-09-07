@@ -7,6 +7,8 @@ function EventEmitter() {
 
 EventEmitter.prototype = {
 
+	constructor: EventEmitter,
+
 	on: function(eventName, callback) {
 		this._listeners.push({
 			name: eventName,

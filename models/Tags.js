@@ -1,16 +1,23 @@
-function Model(data) {
+/**
+ * @class Tags
+ */
+function Tags(data) {
+	// super
+	Model.call(this);
+
 	this.data = data;
 }
 
-Model.prototype = new EventEmitter();
+Tags.prototype = Object.create(Model.prototype);
+Tags.prototype.constructor = Tags;
 
-var proto = Model.prototype;
 
-proto.getTagsForRepo = function(repoId) {
+
+Tags.prototype.getTagsForRepo = function(repoId) {
 	return this.data[repoId] || [];
 };
 
-proto.setTagsForRepo = function(repoId, unserializedTags) {
+Tags.prototype.setTagsForRepo = function(repoId, unserializedTags) {
 	var serializedTags = unserializedTags.split(',')
 		.map(function(tag) { return tag.trim(); })
 		.filter(function(tag) { return tag !== ''; });
@@ -24,11 +31,11 @@ proto.setTagsForRepo = function(repoId, unserializedTags) {
 	this.emit('change');
 };
 
-proto.getDeserializedTagsForRepo = function(repoId) {
+Tags.prototype.getDeserializedTagsForRepo = function(repoId) {
 	return this.getTagsForRepo(repoId).join(', ');
 };
 
-proto.byTag = function() {
+Tags.prototype.byTag = function() {
 	var pivotedData = {};
 	for (var repoId in this.data) {
 		var tags = this.getTagsForRepo(repoId);
@@ -43,7 +50,7 @@ proto.byTag = function() {
 	}
 };
 
-proto.byTagSortedByUse = function() {
+Tags.prototype.byTagSortedByUse = function() {
 	var modelByTag = this.byTag();
 	return Object.keys(modelByTag)
 		.map(createTagObject)
@@ -57,9 +64,9 @@ proto.byTagSortedByUse = function() {
 		};
 	}
 
-	function sortByMostUsedThenAlphanumerically(tagModel1, tagModel2) {
-		var diff = tagModel2.repos.length - tagModel1.repos.length;
-		if (diff === 0) { return tagModel2.name < tagModel1.name; }
+	function sortByMostUsedThenAlphanumerically(tagTags1, tagTags2) {
+		var diff = tagTags2.repos.length - tagTags1.repos.length;
+		if (diff === 0) { return tagTags2.name < tagTags1.name; }
 		return diff;
 	}
 };
