@@ -11,9 +11,10 @@
 			],
 			"js": [
 				"utils.js",
+				"event-emitter.js",
+				"model.js",
 				"tag-line-view.js",
 				"tag-sidebar-view.js",
-				"model.js",
 				"main.js"
 			],
 			"css": [

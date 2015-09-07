@@ -1,3 +1,4 @@
+// TODO: purge unstarred repos (based of real github api)
 var model = new Model({
 	'metafizzy/flickity': ['js', 'carousel', 'gallery', 'touch', 'responsive', 'animation'],
 	'michaelvillar/dynamics.js': ['js', 'animation'],

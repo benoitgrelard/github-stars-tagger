@@ -8,7 +8,7 @@ TagSidebarView.prototype = {
 
 	createElement: function() {
 		var tagSidebarElem = document.createElement('div');
-		tagSidebarElem.classList.add(this.rootClass);
+		tagSidebarElem.classList.add(this.getRootClass());
 		return tagSidebarElem;
 	},
 
@@ -21,12 +21,12 @@ TagSidebarView.prototype = {
 				this.model.byTagSortedByUse().map(function(tagModel) {
 					return [
 						'<li>',
-							'<label class="' + this.rootClass + '-label">',
+							'<label class="GsoTagSidebar-label">',
 								'<span class="filter-item">',
 									tagModel.name,
 									'<span class="count">' + tagModel.repos.length + '</span>',
 								'</span>',
-								'<input class="' + this.rootClass + '-checkbox" type="checkbox" />',
+								'<input class="GsoTagSidebar-checkbox" type="checkbox" />',
 								'<ul class="GsoRepoList">',
 									tagModel.repos.map(function(repoId) {
 										return [
@@ -48,18 +48,16 @@ TagSidebarView.prototype = {
 	},
 
 	addEvents: function() {
-		// refs to bound handlers
-		this.onClicked = this._onClicked.bind(this);
-
-		this.getElement().addEventListener('click', this.onClicked, false);
+		this.onModelChanged = this._onModelChanged.bind(this);
+		this.model.on('change', this.onModelChanged);
 	},
 
 	removeEvents: function() {
-		this.getElement().removeEventListener('click', this.onClicked, false);
+		this.model.off('change', this.onModelChanged);
 	},
 
-	_onClicked: function(event) {
-		// console.log(event, this);
+	_onModelChanged: function(event, data, target) {
+		this.render();
 	},
 
 	getElement: function() {
