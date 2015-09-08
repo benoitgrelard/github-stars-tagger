@@ -1,76 +1,126 @@
 
-var tagsData = {
-	'metafizzy/flickity': ['js', 'carousel', 'gallery', 'touch', 'responsive', 'animation'],
-	'michaelvillar/dynamics.js': ['js', 'animation'],
-	'cyclejs/cycle-core': ['js']
-};
-
-/*chrome.storage.local.set(tagsData, function(data) {
-	console.log(data);
-});*/
-
-// TODO: purge unstarred repos (based of real github api)
-var tagsModel = new Tags(tagsData);
-
-initTagLines(tagsModel);
-initTagSidebar(tagsModel);
+init();
 
 
-function initTagLines(model) {
-	// on page load
-	addTagLines();
+function init() {
 
-	// when sorting, filtering, paginating was used
-	onAjaxPageRefreshed(addTagLines);
+	// TODO: purge unstarred repos (based of real github api)
+	var tagsStore = new TagsStore();
+	tagsStore.get()
+		.then(initModel)
+		.then(initViews)
+		.then(initSync);
 
 
-	function addTagLines() {
-		var starredRepoElems = document.querySelectorAll('.repo-list-item');
+	function initModel(data) {
+		var tagsModel = new Tags(data);
+		return tagsModel;
+	}
 
-		utils.forEach(starredRepoElems, function(starredRepoElem) { addTagLine(starredRepoElem); });
+	function initViews(tagsModel) {
+		initTagLines(tagsModel);
+		initTagSidebar(tagsModel);
 
-		function addTagLine(starredRepoElem) {
-			var repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
+		return tagsModel;
 
-			var view = new TagLineView(model, repoId);
-			view.render();
 
-			var oldTagLineElem = starredRepoElem.querySelector('.' + view.getRootClass());
-			if (oldTagLineElem) { oldTagLineElem.remove(); }
+		function initTagLines(model) {
+			// on page load
+			addTagLines();
 
-			view.injectInto(starredRepoElem);
+			// when sorting, filtering, paginating was used
+			addAjaxPageRefreshEventListener(onAjaxPageRefreshed);
+
+
+			function onAjaxPageRefreshed(newPath) {
+				removeTagLines();
+				var shouldAddTagLines = isCurrentPathSupported(newPath);
+				if (shouldAddTagLines) {
+					addTagLines();
+				}
+			}
+
+			function addTagLines() {
+				var starredRepoElems = document.querySelectorAll('.repo-list-item');
+				utils.forEach(starredRepoElems, addTagLine);
+
+				function addTagLine(starredRepoElem) {
+					var repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
+					var view = new TagLineView(model, repoId);
+					view.render();
+					view.injectInto(starredRepoElem);
+				}
+			}
+
+			function removeTagLines() {
+				var starredRepoElems = document.querySelectorAll('.repo-list-item');
+				utils.forEach(starredRepoElems, removeTagLine);
+
+				function removeTagLine(starredRepoElem) {
+					var oldTagLineElem = starredRepoElem.querySelector('.' + TagLineView.rootClass);
+					if (oldTagLineElem) { oldTagLineElem.remove(); }
+				}
+			}
+		}
+
+		function initTagSidebar(model) {
+			var ajaxContentElem = document.getElementById('js-pjax-container');
+
+			// on page load
+			addSidebar();
+
+			// when sorting, filtering, paginating was used
+			addAjaxPageRefreshEventListener(onAjaxPageRefreshed);
+
+
+			function onAjaxPageRefreshed(newPath) {
+				removeSidebar();
+				var shouldAddSidebar = isCurrentPathSupported(newPath);
+				if (shouldAddSidebar) {
+					addSidebar();
+				}
+			}
+
+			function addSidebar() {
+				var firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
+				var view = new TagSidebarView(model);
+				view.render();
+				view.injectAfter(firstSidebarSeparatorElem);
+			}
+
+			function removeSidebar() {
+				var oldTagSidebarElem = ajaxContentElem.querySelector('.' + TagSidebarView.rootClass);
+				if (oldTagSidebarElem) { oldTagSidebarElem.remove(); }
+			}
+		}
+
+		function addAjaxPageRefreshEventListener(callback) {
+			var ajaxContentElem = document.getElementById('js-pjax-container');
+			var observer = new MutationObserver(function(mutations) {
+				mutations.forEach(function(mutation) {
+					if (mutation.addedNodes.length > 0) { callback(document.location.pathname); }
+				});
+			});
+			var config = { childList: true };
+			observer.observe(ajaxContentElem, config);
+		}
+
+		function isCurrentPathSupported(path) {
+			return path === '/stars' || path === '/stars/' || Boolean(path.match(/\/stars\/?\?.+/));
 		}
 	}
-}
 
-function initTagSidebar(model) {
-	// on page load
-	addSidebar();
-
-	// when sorting, filtering, paginating was used
-	onAjaxPageRefreshed(addSidebar);
+	function initSync(tagsModel) {
+		tagsModel.on('change', onModelChanged);
 
 
-	function addSidebar() {
-		var view = new TagSidebarView(model);
-		view.render();
-
-		var ajaxContentElem = document.getElementById('js-pjax-container');
-		var oldTagSidebarElem = ajaxContentElem.querySelector('.' + view.getRootClass());
-		if (oldTagSidebarElem) { oldTagSidebarElem.remove(); }
-
-		var firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
-		view.injectAfter(firstSidebarSeparatorElem);
+		function onModelChanged(changeData) {
+			if (changeData.deleted) {
+				tagsStore.remove(changeData.key);
+			} else {
+				tagsStore.set(changeData.key, changeData.value);
+			}
+		}
 	}
-}
 
-function onAjaxPageRefreshed(callback) {
-	var ajaxContentElem = document.getElementById('js-pjax-container');
-	var observer = new MutationObserver(function(mutations) {
-		mutations.forEach(function(mutation) {
-			if (mutation.addedNodes.length > 0) { callback(); }
-		});
-	});
-	var config = { childList: true };
-	observer.observe(ajaxContentElem, config);
 }

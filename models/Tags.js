@@ -3,9 +3,7 @@
  */
 function Tags(data) {
 	// super
-	Model.call(this);
-
-	this.data = data;
+	Model.call(this, data);
 }
 
 Tags.prototype = Object.create(Model.prototype);
@@ -22,13 +20,22 @@ Tags.prototype.setTagsForRepo = function(repoId, unserializedTags) {
 		.map(function(tag) { return tag.trim(); })
 		.filter(function(tag) { return tag !== ''; });
 
-	if (serializedTags.length === 0) {
-		delete this.data[repoId];
-	} else {
-		this.data[repoId] = utils.unique(serializedTags);
-	}
+	var hasNoTags = serializedTags.length === 0;
+	var repoChangeEventName = 'change:' + repoId;
+	var changeData = null;
 
-	this.emit('change');
+	if (hasNoTags) {
+		delete this.data[repoId];
+		changeData = { key: repoId, deleted: true };
+		this.emit('change', changeData);
+		this.emit(repoChangeEventName, changeData);
+	} else {
+		var newTags = utils.unique(serializedTags);
+		changeData = { key: repoId, value: newTags };
+		this.data[repoId] = newTags;
+		this.emit('change', changeData);
+		this.emit(repoChangeEventName, changeData);
+	}
 };
 
 Tags.prototype.getDeserializedTagsForRepo = function(repoId) {

@@ -1,11 +1,10 @@
 /**
  * @class View
  */
-function View(rootClass) {
+function View() {
 	// super
 	EventEmitter.call(this);
 
-	this.rootClass = rootClass;
 	this.rootElement = this.createRootElement();
 }
 
@@ -18,7 +17,7 @@ View.prototype.constructor = View;
 
 View.prototype.createRootElement = function() {
 	var rootElem = document.createElement('div');
-	rootElem.classList.add(this.getRootClass());
+	rootElem.classList.add(this.constructor.rootClass);
 	return rootElem;
 };
 
@@ -32,10 +31,6 @@ View.prototype.getElement = function(selector) {
 	} else {
 		return this.rootElement.querySelector(selector);
 	}
-};
-
-View.prototype.getRootClass = function() {
-	return this.rootClass;
 };
 
 View.prototype.injectInto = function(parentElem) {

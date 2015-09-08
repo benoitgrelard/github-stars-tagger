@@ -1,17 +1,17 @@
 
 var utils = {
 
-	forEach: function (array, callback, scope) {
+	forEach: function(array, callback, scope) {
 		for (var i=0; i<array.length; i++) {
 			callback.call(scope, array[i], i);
 		}
 	},
 
-	insertAfter: function (newNode, referenceNode) {
+	insertAfter: function(newNode, referenceNode) {
 		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 	},
 
-	unique: function (array) {
+	unique: function(array) {
 		var hash = {};
 		var res = [];
 		for (var i=0; i<array.length; i++) {

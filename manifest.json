@@ -13,6 +13,7 @@
 			],
 			"js": [
 				"libs/utils.js",
+				"libs/TagsStore.js",
 				"libs/EventEmitter.js",
 				"libs/Model.js",
 				"libs/View.js",

@@ -3,11 +3,13 @@
  */
 function TagLineView(model, repoId) {
 	// super
-	View.call(this, 'GsoTagLine');
+	View.call(this);
 
 	this.model = model;
 	this.repoId = repoId;
 }
+
+TagLineView.rootClass = 'GsoTagLine';
 
 TagLineView.prototype = Object.create(View.prototype);
 TagLineView.prototype.constructor = TagLineView;
@@ -16,7 +18,7 @@ TagLineView.prototype.constructor = TagLineView;
 
 TagLineView.prototype.createRootElement = function() {
 	var rootElem = document.createElement('p');
-	rootElem.classList.add('repo-list-meta', this.getRootClass());
+	rootElem.classList.add('repo-list-meta', TagLineView.rootClass);
 	return rootElem;
 };
 
@@ -44,7 +46,8 @@ TagLineView.prototype.addEvents = function() {
 	this.onTagsClicked = this._onTagsClicked.bind(this);
 	this.onEditableTagsKeydown = this._onEditableTagsKeydown.bind(this);
 
-	this.model.on('change', this.onModelChanged);
+	var repoChangeEventName = 'change:' + this.repoId;
+	this.model.on(repoChangeEventName, this.onModelChanged);
 
 	var tagsElem = this.getElement('.GsoTagLine-tags');
 	tagsElem.addEventListener('click', this.onTagsClicked);
@@ -54,7 +57,8 @@ TagLineView.prototype.addEvents = function() {
 };
 
 TagLineView.prototype.removeEvents = function() {
-	this.model.off('change', this.onModelChanged);
+	var repoChangeEventName = 'change:' + this.repoId;
+	this.model.off(repoChangeEventName, this.onModelChanged);
 
 	var tagsElem = this.getElement('.GsoTagLine-tags');
 	if (tagsElem) {
@@ -67,7 +71,7 @@ TagLineView.prototype.removeEvents = function() {
 	}
 };
 
-TagLineView.prototype._onModelChanged = function(event, data, target) {
+TagLineView.prototype._onModelChanged = function(changeData, target, eventName) {
 	this.render();
 };
 

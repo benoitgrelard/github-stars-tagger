@@ -29,7 +29,7 @@ EventEmitter.prototype = {
 	emit: function(eventName, data) {
 		this._listeners
 			.filter(function(listener) { return listener.name === eventName; }, this)
-			.forEach(function(listener) { listener.callback(eventName, data, this); }, this);
+			.forEach(function(listener) { listener.callback(data, this, eventName); }, this);
 		return this;
 	}
 

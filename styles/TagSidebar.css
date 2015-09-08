@@ -3,6 +3,12 @@
  */
 .GsoTagSidebar {}
 
+.GsoTagSidebar-noTagsMessage {}
+.GsoTagSidebar-noTagsMessage:hover {
+	background-color: transparent !important;
+	cursor: auto;
+}
+
 .GsoTagSidebar-label {
 	font-size: inherit;
 	font-weight: inherit;
