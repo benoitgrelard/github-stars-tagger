@@ -32,7 +32,7 @@ TagLineView.prototype.render = function() {
 		'<span class="GsoTagLine-tags" title="Click to ' + (tags ? 'edit' : 'add') + ' tags">',
 			(tags || 'no tags (click to add)'),
 		'</span>',
-		'<input class="GsoTagLine-editableTags" type="text" value="' + tags + '" placeholder="Enter comma-separated tags..." />'
+		'<input class="GsoTagLine-editableTags" type="text" value="' + tags + '" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />'
 	].join('\n');
 
 	this.addEvents();
