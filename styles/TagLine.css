@@ -4,7 +4,7 @@
 .GsoTagLine {}
 
 .GsoTagLine-icon {}
-.GsoTagLine--noTags .GsoTagLine-icon { opacity: 0.35; }
+.GsoTagLine--noTags .GsoTagLine-icon { opacity: 0.5; }
 
 .GsoTagLine-tags {
 	display: inline-block;
@@ -13,7 +13,7 @@
 }
 .GsoTagLine-tags:hover { text-decoration: underline; }
 .GsoTagLine.-is-editing .GsoTagLine-tags { display: none; }
-.GsoTagLine--noTags .GsoTagLine-tags { opacity: 0.35; }
+.GsoTagLine--noTags .GsoTagLine-tags { opacity: 0.5; }
 
 .GsoTagLine-editableTags {
 	display: none;
