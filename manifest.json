@@ -1,7 +1,7 @@
 {
 	"name": "Github Stars Organiser",
 	"version": "0.1.0",
-	"description": "A Google Chrome extension to organise your github starred repositories",
+	"description": "A Google Chrome extension to organise your starred repositories on github",
 	"author": "Benoît Grélard",
 	"icons": {},
 	"content_scripts": [
