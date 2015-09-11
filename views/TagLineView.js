@@ -45,6 +45,7 @@ TagLineView.prototype.addEvents = function() {
 	this.onModelChanged = this._onModelChanged.bind(this);
 	this.onTagsClicked = this._onTagsClicked.bind(this);
 	this.onEditableTagsKeydown = this._onEditableTagsKeydown.bind(this);
+	this.onEditableTagsBlurred = this._onEditableTagsBlurred.bind(this);
 
 	var repoChangeEventName = 'change:' + this.repoId;
 	this.model.on(repoChangeEventName, this.onModelChanged);
@@ -54,6 +55,7 @@ TagLineView.prototype.addEvents = function() {
 
 	var editableTagsElem = this.getElement('.GsoTagLine-editableTags');
 	editableTagsElem.addEventListener('keydown', this.onEditableTagsKeydown);
+	editableTagsElem.addEventListener('blur', this.onEditableTagsBlurred);
 };
 
 TagLineView.prototype.removeEvents = function() {
@@ -68,6 +70,7 @@ TagLineView.prototype.removeEvents = function() {
 	var editableTagsElem = this.getElement('.GsoTagLine-editableTags');
 	if (editableTagsElem) {
 		editableTagsElem.removeEventListener('keydown', this.onEditableTagsKeydown);
+		editableTagsElem.removeEventListener('blur', this.onEditableTagsBlurred);
 	}
 };
 
@@ -89,6 +92,10 @@ TagLineView.prototype._onEditableTagsKeydown = function(event) {
 		var newTags = event.currentTarget.value;
 		this.exitEditMode(newTags);
 	}
+};
+
+TagLineView.prototype._onEditableTagsBlurred = function(event) {
+	this.exitEditMode();
 };
 
 TagLineView.prototype.enterEditMode = function() {
