@@ -1,45 +1,45 @@
+'use strict';
+
 /**
  * @class View
  */
-function View() {
-	// super
-	EventEmitter.call(this);
+class View extends EventEmitter {
 
-	this.refs = {
-		root: this.createRootElement()
-	};
-	this.handlers = {};
+	constructor () {
+		super();
+
+		this.refs = {
+			root: this.createRootElement()
+		};
+
+		this.handlers = {};
+	}
+
+	createRootElement () {
+		var rootElem = document.createElement('div');
+		rootElem.classList.add(this.constructor.rootClass);
+		return rootElem;
+	}
+
+	render () {
+		// override this method
+	}
+
+	getElement (selector) {
+		if (typeof selector === 'undefined') {
+			return this.refs.root;
+		} else {
+			return this.refs.root.querySelector(selector);
+		}
+	}
+
+	injectInto (parentElem) {
+		parentElem.appendChild(this.getElement());
+	}
+
+	injectAfter (siblingElem) {
+		utils.insertAfter(this.getElement(), siblingElem);
+	}
 }
 
-View.prototype = Object.create(EventEmitter.prototype);
-View.prototype.constructor = View;
-
-
-
-View.prototype.constructor = View;
-
-View.prototype.createRootElement = function() {
-	var rootElem = document.createElement('div');
-	rootElem.classList.add(this.constructor.rootClass);
-	return rootElem;
-};
-
-View.prototype.render = function() {
-	// override this method
-};
-
-View.prototype.getElement = function(selector) {
-	if (typeof selector === 'undefined') {
-		return this.refs.root;
-	} else {
-		return this.refs.root.querySelector(selector);
-	}
-};
-
-View.prototype.injectInto = function(parentElem) {
-	parentElem.appendChild(this.getElement());
-};
-
-View.prototype.injectAfter = function(siblingElem) {
-	utils.insertAfter(this.getElement(), siblingElem);
-};
+/* jshint unused: false */

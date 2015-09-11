@@ -1,12 +1,16 @@
+'use strict';
+
 /**
  * @class Model
  */
-function Model(data) {
-	// super
-	EventEmitter.call(this);
+class Model extends EventEmitter {
 
-	this.data = data;
+	constructor (data) {
+		super();
+
+		this.data = data;
+	}
+
 }
 
-Model.prototype = Object.create(EventEmitter.prototype);
-Model.prototype.constructor = Model;
+/* jshint unused: false */
