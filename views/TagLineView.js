@@ -27,13 +27,15 @@ class TagLineView extends View {
 		var noTagsModifierClass = 'GsoTagLine--noTags';
 		this.getElement().classList.toggle(noTagsModifierClass, !tags);
 
-		this.getElement().innerHTML = [
-			'<span class="octicon octicon-tag GsoTagLine-icon"></span>',
-			'<span class="GsoTagLine-tags" title="Click to ' + (tags ? 'edit' : 'add') + ' tags">',
-				(tags || 'no tags (click to add)'),
-			'</span>',
-			'<input class="GsoTagLine-tagsInput" type="text" value="' + tags + '" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />'
-		].join('\n');
+		var output = `
+			<span class="octicon octicon-tag GsoTagLine-icon"></span>
+			<span class="GsoTagLine-tags" title="Click to ${ tags ? 'edit' : 'add' } tags">
+				${ tags || 'no tags (click to add)' }
+			</span>
+			<input class="GsoTagLine-tagsInput" type="text" value="${ tags }" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />
+		`;
+
+		this.getElement().innerHTML = output;
 
 		this.refs.tags = this.getElement('.GsoTagLine-tags');
 		this.refs.tagsInput = this.getElement('.GsoTagLine-tagsInput');

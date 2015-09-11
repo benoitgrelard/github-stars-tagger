@@ -17,46 +17,54 @@ class TagSidebarView extends View {
 		}
 
 		var sortedTags = this.model.byTagSortedByUse();
+		var output = `
+			<h3>Filter by tags</h3>
+			<ul class="filter-list small">
+				${ this.renderTags(sortedTags) }
+			</ul>
+			<hr />
+		`;
 
-		this.getElement().innerHTML = [
-			'<h3>Filter by tags</h3>',
-			'<ul class="filter-list small">',
-				getTags(sortedTags),
-			'</ul>',
-			'<hr />'
-		].join('\n');
+		this.getElement().innerHTML = output;
 
 		this.addEvents();
 		this.rendered = true;
+	}
 
-
-		function getTags(sortedTags) {
-			if (sortedTags.length === 0) { return '<span class="filter-item GsoTagSidebar-noTagsMessage">No tags.</span>\n'; }
-			return sortedTags.map(getTag).join('\n');
+	renderTags (sortedTags) {
+		if (sortedTags.length === 0) {
+			return `<span class="filter-item GsoTagSidebar-noTagsMessage">No tags.</span>`;
 		}
+		return sortedTags.map(this.renderTag, this).join('');
+	}
 
-		function getTag(tagModel) {
-			return [
-				'<li>',
-					'<label class="GsoTagSidebar-label">',
-						'<span class="filter-item">',
-							tagModel.name,
-							'<span class="count">' + tagModel.repos.length + '</span>',
-						'</span>',
-						'<input class="GsoTagSidebar-checkbox" type="checkbox" />',
-						'<ul class="GsoRepoList">',
-							tagModel.repos.map(function(repoId) {
-								return [
-									'<li class="GsoRepoList-item">',
-										'<a href="/' + repoId + '">' + repoId + '</a>',
-									'</li>'
-								].join('\n');
-							}).join('\n'),
-						'</ul>',
-					'</label>',
-				'</li>'
-			].join('\n');
-		}
+	renderTag (tagModel) {
+		return `
+			<li>
+				<label class="GsoTagSidebar-label">
+					<span class="filter-item">
+						${ tagModel.name }
+						<span class="count">${ tagModel.repos.length }</span>
+					</span>
+					<input class="GsoTagSidebar-checkbox" type="checkbox" />
+					<ul class="GsoRepoList">
+						${ this.renderTagRepos(tagModel) }
+					</ul>
+				</label>
+			</li>
+		`;
+	}
+
+	renderTagRepos (tagModel) {
+		return tagModel.repos.map(this.renderTagRepo, this).join('');
+	}
+
+	renderTagRepo (repoId) {
+		return `
+			<li class="GsoRepoList-item">
+				<a href="/${ repoId }">${ repoId }</a>
+			</li>
+		`;
 	}
 
 	addEvents () {
