@@ -61,9 +61,7 @@ TagSidebarView.prototype.render = function() {
 };
 
 TagSidebarView.prototype.addEvents = function() {
-	// refs to bound handlers
 	this.onModelChanged = this._onModelChanged.bind(this);
-
 	this.model.on('change', this.onModelChanged);
 };
 

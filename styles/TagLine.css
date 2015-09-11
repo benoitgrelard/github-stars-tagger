@@ -15,8 +15,8 @@
 .GsoTagLine.-is-editing .GsoTagLine-tags { display: none; }
 .GsoTagLine--noTags .GsoTagLine-tags { opacity: 0.5; }
 
-.GsoTagLine-editableTags {
+.GsoTagLine-tagsInput {
 	display: none;
 	min-width: 50%;
 }
-.GsoTagLine.-is-editing .GsoTagLine-editableTags { display: inline-block; }
+.GsoTagLine.-is-editing .GsoTagLine-tagsInput { display: inline-block; }

@@ -5,7 +5,9 @@ function View() {
 	// super
 	EventEmitter.call(this);
 
-	this.rootElement = this.createRootElement();
+	this.refs = {
+		root: this.createRootElement()
+	};
 }
 
 View.prototype = Object.create(EventEmitter.prototype);
@@ -27,9 +29,9 @@ View.prototype.render = function() {
 
 View.prototype.getElement = function(selector) {
 	if (typeof selector === 'undefined') {
-		return this.rootElement;
+		return this.refs.root;
 	} else {
-		return this.rootElement.querySelector(selector);
+		return this.refs.root.querySelector(selector);
 	}
 };
 

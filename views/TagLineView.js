@@ -18,7 +18,7 @@ TagLineView.prototype.constructor = TagLineView;
 
 TagLineView.prototype.createRootElement = function() {
 	var rootElem = document.createElement('p');
-	rootElem.classList.add('repo-list-meta', TagLineView.rootClass);
+	rootElem.classList.add(TagLineView.rootClass, 'repo-list-meta');
 	return rootElem;
 };
 
@@ -34,43 +34,39 @@ TagLineView.prototype.render = function() {
 		'<span class="GsoTagLine-tags" title="Click to ' + (tags ? 'edit' : 'add') + ' tags">',
 			(tags || 'no tags (click to add)'),
 		'</span>',
-		'<input class="GsoTagLine-editableTags" type="text" value="' + tags + '" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />'
+		'<input class="GsoTagLine-tagsInput" type="text" value="' + tags + '" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />'
 	].join('\n');
+
+	this.refs.tags = this.getElement('.GsoTagLine-tags');
+	this.refs.tagsInput = this.getElement('.GsoTagLine-tagsInput');
 
 	this.addEvents();
 };
 
 TagLineView.prototype.addEvents = function() {
-	// refs to bound handlers
 	this.onModelChanged = this._onModelChanged.bind(this);
+	this.model.on('change:' + this.repoId, this.onModelChanged);
+
 	this.onTagsClicked = this._onTagsClicked.bind(this);
+	this.refs.tags.addEventListener('click', this.onTagsClicked);
+
 	this.onEditableTagsKeydown = this._onEditableTagsKeydown.bind(this);
+	this.refs.tagsInput.addEventListener('keydown', this.onEditableTagsKeydown);
+
 	this.onEditableTagsBlurred = this._onEditableTagsBlurred.bind(this);
-
-	var repoChangeEventName = 'change:' + this.repoId;
-	this.model.on(repoChangeEventName, this.onModelChanged);
-
-	var tagsElem = this.getElement('.GsoTagLine-tags');
-	tagsElem.addEventListener('click', this.onTagsClicked);
-
-	var editableTagsElem = this.getElement('.GsoTagLine-editableTags');
-	editableTagsElem.addEventListener('keydown', this.onEditableTagsKeydown);
-	editableTagsElem.addEventListener('blur', this.onEditableTagsBlurred);
+	this.refs.tagsInput.addEventListener('blur', this.onEditableTagsBlurred);
 };
 
 TagLineView.prototype.removeEvents = function() {
-	var repoChangeEventName = 'change:' + this.repoId;
-	this.model.off(repoChangeEventName, this.onModelChanged);
+	this.model.off('change:' + this.repoId, this.onModelChanged);
 
-	var tagsElem = this.getElement('.GsoTagLine-tags');
-	if (tagsElem) {
-		tagsElem.removeEventListener('click', this.onTagsClicked);
+	if (this.refs.tags) {
+		this.refs.tags.removeEventListener('click', this.onTagsClicked);
 	}
 
-	var editableTagsElem = this.getElement('.GsoTagLine-editableTags');
-	if (editableTagsElem) {
-		editableTagsElem.removeEventListener('keydown', this.onEditableTagsKeydown);
-		editableTagsElem.removeEventListener('blur', this.onEditableTagsBlurred);
+	if (this.refs.tagsInput) {
+		this.refs.tagsInput.removeEventListener('keydown', this.onEditableTagsKeydown);
+		this.refs.tagsInput.removeEventListener('blur', this.onEditableTagsBlurred);
 	}
 };
 
@@ -99,16 +95,15 @@ TagLineView.prototype._onEditableTagsBlurred = function(event) {
 };
 
 TagLineView.prototype.enterEditMode = function() {
-	var editableTagsElem = this.getElement('.GsoTagLine-editableTags');
 	this.getElement().classList.add('-is-editing');
 
 	// help entering next tag
-	if (editableTagsElem.value !== '') { editableTagsElem.value += ', '; }
+	if (this.refs.tagsInput.value !== '') { this.refs.tagsInput.value += ', '; }
 
 	// focus at the end of input
-	editableTagsElem.focus();
-	var length = editableTagsElem.value.length;
-	editableTagsElem.setSelectionRange(length, length);
+	this.refs.tagsInput.focus();
+	var length = this.refs.tagsInput.value.length;
+	this.refs.tagsInput.setSelectionRange(length, length);
 };
 
 TagLineView.prototype.exitEditMode = function(newTags) {
