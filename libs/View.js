@@ -8,6 +8,7 @@ function View() {
 	this.refs = {
 		root: this.createRootElement()
 	};
+	this.handlers = {};
 }
 
 View.prototype = Object.create(EventEmitter.prototype);

@@ -16,7 +16,9 @@ TagSidebarView.prototype.constructor = TagSidebarView;
 
 
 TagSidebarView.prototype.render = function() {
-	this.removeEvents();
+	if (this.rendered) {
+		this.removeEvents();
+	}
 
 	var sortedTags = this.model.byTagSortedByUse();
 
@@ -29,6 +31,7 @@ TagSidebarView.prototype.render = function() {
 	].join('\n');
 
 	this.addEvents();
+	this.rendered = true;
 
 
 	function getTags(sortedTags) {
@@ -61,14 +64,15 @@ TagSidebarView.prototype.render = function() {
 };
 
 TagSidebarView.prototype.addEvents = function() {
-	this.onModelChanged = this._onModelChanged.bind(this);
-	this.model.on('change', this.onModelChanged);
+	this.handlers.modelChange = this.onModelChanged.bind(this);
+	this.model.on('change', this.handlers.modelChange);
 };
 
 TagSidebarView.prototype.removeEvents = function() {
-	this.model.off('change', this.onModelChanged);
+	this.model.off('change', this.handlers.modelChange);
+	this.handlers.modelChange = null;
 };
 
-TagSidebarView.prototype._onModelChanged = function(changeData, target, eventName) {
+TagSidebarView.prototype.onModelChanged = function(changeData, target, eventName) {
 	this.render();
 };

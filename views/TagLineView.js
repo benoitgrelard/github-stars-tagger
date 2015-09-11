@@ -23,7 +23,9 @@ TagLineView.prototype.createRootElement = function() {
 };
 
 TagLineView.prototype.render = function() {
-	this.removeEvents();
+	if (this.rendered) {
+		this.removeEvents();
+	}
 
 	var tags = this.model.getDeserializedTagsForRepo(this.repoId);
 	var noTagsModifierClass = 'GsoTagLine--noTags';
@@ -41,44 +43,46 @@ TagLineView.prototype.render = function() {
 	this.refs.tagsInput = this.getElement('.GsoTagLine-tagsInput');
 
 	this.addEvents();
+	this.rendered = true;
 };
 
 TagLineView.prototype.addEvents = function() {
-	this.onModelChanged = this._onModelChanged.bind(this);
-	this.model.on('change:' + this.repoId, this.onModelChanged);
+	this.handlers.modelChange = this.onModelChanged.bind(this);
+	this.model.on('change:' + this.repoId, this.handlers.modelChange);
 
-	this.onTagsClicked = this._onTagsClicked.bind(this);
-	this.refs.tags.addEventListener('click', this.onTagsClicked);
+	this.handlers.tagsClick = this.onTagsClicked.bind(this);
+	this.refs.tags.addEventListener('click', this.handlers.tagsClick);
 
-	this.onEditableTagsKeydown = this._onEditableTagsKeydown.bind(this);
-	this.refs.tagsInput.addEventListener('keydown', this.onEditableTagsKeydown);
+	this.handlers.tagsInputKeydown = this.onTagsInputKeydowned.bind(this);
+	this.refs.tagsInput.addEventListener('keydown', this.handlers.tagsInputKeydown);
 
-	this.onEditableTagsBlurred = this._onEditableTagsBlurred.bind(this);
-	this.refs.tagsInput.addEventListener('blur', this.onEditableTagsBlurred);
+	this.handlers.tagsInputBlur = this.onTagsInputBlurred.bind(this);
+	this.refs.tagsInput.addEventListener('blur', this.handlers.tagsInputBlur);
 };
 
 TagLineView.prototype.removeEvents = function() {
-	this.model.off('change:' + this.repoId, this.onModelChanged);
+	this.model.off('change:' + this.repoId, this.handlers.modelChange);
+	this.handlers.modelChange = null;
 
-	if (this.refs.tags) {
-		this.refs.tags.removeEventListener('click', this.onTagsClicked);
-	}
+	this.refs.tags.removeEventListener('click', this.handlers.tagsClick);
+	this.handlers.tagsClick = null;
 
-	if (this.refs.tagsInput) {
-		this.refs.tagsInput.removeEventListener('keydown', this.onEditableTagsKeydown);
-		this.refs.tagsInput.removeEventListener('blur', this.onEditableTagsBlurred);
-	}
+	this.refs.tagsInput.removeEventListener('keydown', this.handlers.tagsInputKeydown);
+	this.handlers.tagsInputKeydown = null;
+
+	this.refs.tagsInput.removeEventListener('blur', this.handlers.tagsInputBlur);
+	this.handlers.tagsInputBlur = null;
 };
 
-TagLineView.prototype._onModelChanged = function(changeData, target, eventName) {
+TagLineView.prototype.onModelChanged = function(changeData, target, eventName) {
 	this.render();
 };
 
-TagLineView.prototype._onTagsClicked = function(event) {
+TagLineView.prototype.onTagsClicked = function(event) {
 	this.enterEditMode();
 };
 
-TagLineView.prototype._onEditableTagsKeydown = function(event) {
+TagLineView.prototype.onTagsInputKeydowned = function(event) {
 	var ENTER = 13;
 	var ESCAPE = 27;
 
@@ -90,7 +94,7 @@ TagLineView.prototype._onEditableTagsKeydown = function(event) {
 	}
 };
 
-TagLineView.prototype._onEditableTagsBlurred = function(event) {
+TagLineView.prototype.onTagsInputBlurred = function(event) {
 	this.exitEditMode();
 };
 
