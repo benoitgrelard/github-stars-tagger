@@ -35,7 +35,7 @@ class TagSidebarView extends View {
 		if (sortedTags.length === 0) {
 			return `<span class="filter-item GsoTagSidebar-noTagsMessage">No tags.</span>`;
 		}
-		return sortedTags.map(this.renderTag, this).join('');
+		return sortedTags.map(tagModel => this.renderTag(tagModel)).join('');
 	}
 
 	renderTag (tagModel) {
@@ -56,7 +56,7 @@ class TagSidebarView extends View {
 	}
 
 	renderTagRepos (tagModel) {
-		return tagModel.repos.map(this.renderTagRepo, this).join('');
+		return tagModel.repos.map(tagModel => this.renderTagRepo(tagModel)).join('');
 	}
 
 	renderTagRepo (repoId) {
@@ -68,13 +68,17 @@ class TagSidebarView extends View {
 	}
 
 	addEvents () {
-		this.handlers.modelChange = this.onModelChanged.bind(this);
+		this.handlers = {
+			modelChange: (changeData, target, eventName) => this.onModelChanged(changeData, target, eventName)
+		};
+
 		this.model.on('change', this.handlers.modelChange);
 	}
 
 	removeEvents () {
 		this.model.off('change', this.handlers.modelChange);
-		this.handlers.modelChange = null;
+
+		this.handlers = {};
 	}
 
 	onModelChanged (changeData, target, eventName) {

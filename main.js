@@ -1,3 +1,4 @@
+'use strict';
 
 init();
 
@@ -7,12 +8,12 @@ function init() {
 	// TODO: purge unstarred repos (based of real github api)
 	var tagsStore = new TagsStore();
 	tagsStore.get()
-		.then(initModel)
+		.then(createModel)
 		.then(initViews)
 		.then(initSync);
 
 
-	function initModel(data) {
+	function createModel(data) {
 		var tagsModel = new Tags(data);
 		return tagsModel;
 	}
@@ -96,9 +97,11 @@ function init() {
 
 		function addAjaxPageRefreshEventListener(callback) {
 			var ajaxContentElem = document.getElementById('js-pjax-container');
-			var observer = new MutationObserver(function(mutations) {
-				mutations.forEach(function(mutation) {
-					if (mutation.addedNodes.length > 0) { callback(document.location.pathname); }
+			var observer = new MutationObserver(mutations => {
+				mutations.forEach(mutation => {
+					if (mutation.addedNodes.length > 0) {
+						callback(document.location.pathname);
+					}
 				});
 			});
 			var config = { childList: true };

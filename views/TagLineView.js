@@ -45,31 +45,26 @@ class TagLineView extends View {
 	}
 
 	addEvents () {
-		this.handlers.modelChange = this.onModelChanged.bind(this);
+		this.handlers = {
+			modelChange: (changeData, target, eventName) => this.onModelChanged(changeData, target, eventName),
+			tagsClick: event => this.onTagsClicked(event),
+			tagsInputKeydown: event => this.onTagsInputKeydowned(event),
+			tagsInputBlur: event => this.onTagsInputBlurred(event)
+		};
+
 		this.model.on('change:' + this.repoId, this.handlers.modelChange);
-
-		this.handlers.tagsClick = this.onTagsClicked.bind(this);
 		this.refs.tags.addEventListener('click', this.handlers.tagsClick);
-
-		this.handlers.tagsInputKeydown = this.onTagsInputKeydowned.bind(this);
 		this.refs.tagsInput.addEventListener('keydown', this.handlers.tagsInputKeydown);
-
-		this.handlers.tagsInputBlur = this.onTagsInputBlurred.bind(this);
 		this.refs.tagsInput.addEventListener('blur', this.handlers.tagsInputBlur);
 	}
 
 	removeEvents () {
 		this.model.off('change:' + this.repoId, this.handlers.modelChange);
-		this.handlers.modelChange = null;
-
 		this.refs.tags.removeEventListener('click', this.handlers.tagsClick);
-		this.handlers.tagsClick = null;
-
 		this.refs.tagsInput.removeEventListener('keydown', this.handlers.tagsInputKeydown);
-		this.handlers.tagsInputKeydown = null;
-
 		this.refs.tagsInput.removeEventListener('blur', this.handlers.tagsInputBlur);
-		this.handlers.tagsInputBlur = null;
+
+		this.handlers = {};
 	}
 
 	onModelChanged (changeData, target, eventName) {

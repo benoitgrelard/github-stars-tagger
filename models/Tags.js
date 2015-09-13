@@ -15,8 +15,8 @@ class Tags extends Model {
 
 	setTagsForRepo (repoId, unserializedTags) {
 		var serializedTags = unserializedTags.split(',')
-			.map(function(tag) { return tag.trim(); })
-			.filter(function(tag) { return tag !== ''; });
+			.map(tag => tag.trim())
+			.filter(tag => tag !== '');
 
 		var hasNoTags = serializedTags.length === 0;
 		var repoChangeEventName = 'change:' + repoId;
@@ -69,9 +69,9 @@ class Tags extends Model {
 			};
 		}
 
-		function sortByMostUsedThenAlphanumerically(tagTags1, tagTags2) {
-			var diff = tagTags2.repos.length - tagTags1.repos.length;
-			if (diff === 0) { return tagTags2.name < tagTags1.name; }
+		function sortByMostUsedThenAlphanumerically(tagObject1, tagObject2) {
+			var diff = tagObject2.repos.length - tagObject1.repos.length;
+			if (diff === 0) { return tagObject2.name < tagObject1.name; }
 			return diff;
 		}
 	}

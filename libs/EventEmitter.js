@@ -18,18 +18,18 @@ class EventEmitter {
 	}
 
 	off (eventName, callback) {
-		this._listeners.forEach(function(listener, index) {
+		this._listeners.forEach((listener, index) => {
 			if (listener.name === eventName && listener.callback === callback) {
 				this._listeners.splice(index, 1);
 			}
-		}, this);
+		});
 		return this;
 	}
 
 	emit (eventName, data) {
 		this._listeners
-			.filter(function(listener) { return listener.name === eventName; }, this)
-			.forEach(function(listener) { listener.callback(data, this, eventName); }, this);
+			.filter(listener => listener.name === eventName)
+			.forEach(listener => listener.callback(data, this, eventName));
 		return this;
 	}
 

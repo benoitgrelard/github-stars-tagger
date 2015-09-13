@@ -64,9 +64,13 @@
 
 	"globals": {
 		"chrome": false,
-		"utils": false,
+		"utils": true,
 		"EventEmitter": false,
 		"Model": false,
-		"View": false
+		"View": false,
+		"TagsStore": false,
+		"Tags": false,
+		"TagLineView": false,
+		"TagSidebarView": false
 	}
 }
