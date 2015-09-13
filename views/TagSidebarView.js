@@ -11,6 +11,10 @@ class TagSidebarView extends View {
 		this.model = model;
 	}
 
+	static getRootClass () {
+		return 'GsoTagSidebar';
+	}
+
 	render () {
 		if (this.rendered) {
 			this.removeEvents();
@@ -87,4 +91,4 @@ class TagSidebarView extends View {
 
 }
 
-TagSidebarView.rootClass = 'GsoTagSidebar';
+/* jshint unused: false */

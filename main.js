@@ -58,7 +58,7 @@ function init() {
 				utils.forEach(starredRepoElems, removeTagLine);
 
 				function removeTagLine(starredRepoElem) {
-					var oldTagLineElem = starredRepoElem.querySelector('.' + TagLineView.rootClass);
+					var oldTagLineElem = starredRepoElem.querySelector('.' + TagLineView.getRootClass());
 					if (oldTagLineElem) { oldTagLineElem.remove(); }
 				}
 			}
@@ -90,7 +90,7 @@ function init() {
 			}
 
 			function removeSidebar() {
-				var oldTagSidebarElem = ajaxContentElem.querySelector('.' + TagSidebarView.rootClass);
+				var oldTagSidebarElem = ajaxContentElem.querySelector('.' + TagSidebarView.getRootClass());
 				if (oldTagSidebarElem) { oldTagSidebarElem.remove(); }
 			}
 		}

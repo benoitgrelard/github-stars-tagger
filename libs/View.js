@@ -15,9 +15,14 @@ class View extends EventEmitter {
 		this.handlers = {};
 	}
 
+	static getRootClass () {
+		// override this method
+		return '';
+	}
+
 	createRootElement () {
 		var rootElem = document.createElement('div');
-		rootElem.classList.add(this.constructor.rootClass);
+		rootElem.classList.add(this.constructor.getRootClass());
 		return rootElem;
 	}
 

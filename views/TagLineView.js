@@ -12,9 +12,13 @@ class TagLineView extends View {
 		this.repoId = repoId;
 	}
 
+	static getRootClass () {
+		return 'GsoTagLine';
+	}
+
 	createRootElement () {
 		var rootElem = document.createElement('p');
-		rootElem.classList.add(TagLineView.rootClass, 'repo-list-meta');
+		rootElem.classList.add(TagLineView.getRootClass(), 'repo-list-meta');
 		return rootElem;
 	}
 
@@ -114,5 +118,3 @@ class TagLineView extends View {
 	}
 
 }
-
-TagLineView.rootClass = 'GsoTagLine';
