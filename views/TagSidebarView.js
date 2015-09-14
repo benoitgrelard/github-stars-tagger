@@ -39,7 +39,7 @@
 
 		renderTags(sortedTags) {
 			if (sortedTags.length === 0) {
-				return `<span class="filter-item GsmTagSidebar-noTagsMessage">no tags</span>`;
+				return `<span class="filter-item GsmTagSidebar-noTagsMessage">No tags</span>`;
 			}
 			return sortedTags.map(tagModel => this.renderTag(tagModel)).join('');
 		}
