@@ -2,20 +2,23 @@
 
 const utils = {
 
-	insertAfter (newNode, referenceNode) {
+	insertAfter(newNode, referenceNode) {
 		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 	},
 
-	unique (array) {
+	unique(array) {
 		const hash = {};
 		const res = [];
-		for (let i=0; i<array.length; i++) {
+
+		for (let i = 0; i < array.length; i++) {
 			const item = array[i];
+
 			if (!hash[item]) {
 				hash[item] = true;
 				res.push(item);
 			}
 		}
+
 		return res;
 	}
 

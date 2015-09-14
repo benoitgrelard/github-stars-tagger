@@ -5,8 +5,8 @@ init();
 
 function init() {
 
-	// TODO: purge unstarred repos (based of real github api)
 	const tagsStore = new TagsStore();
+
 	tagsStore.get()
 		.then(createModel)
 		.then(initViews)
@@ -14,8 +14,7 @@ function init() {
 
 
 	function createModel(data) {
-		const tagsModel = new Tags(data);
-		return tagsModel;
+		return new Tags(data);
 	}
 
 	function initViews(tagsModel) {
@@ -97,6 +96,7 @@ function init() {
 
 		function addAjaxPageRefreshEventListener(callback) {
 			const ajaxContentElem = document.getElementById('js-pjax-container');
+
 			const observer = new MutationObserver(mutations => {
 				mutations.forEach(mutation => {
 					if (mutation.addedNodes.length > 0) {
@@ -104,6 +104,7 @@ function init() {
 					}
 				});
 			});
+
 			const config = { childList: true };
 			observer.observe(ajaxContentElem, config);
 		}

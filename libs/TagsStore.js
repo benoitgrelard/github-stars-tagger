@@ -5,12 +5,12 @@
  */
 class TagsStore {
 
-	constructor () {
+	constructor() {
 
 	}
 
-	get (key) {
-		return new Promise((resolve, reject) => {
+	get(key) {
+		const promise = new Promise((resolve, reject) => {
 			chrome.storage.sync.get(key, data => {
 				if (chrome.runtime.lastError) {
 					reject(chrome.runtime.lastError);
@@ -18,17 +18,21 @@ class TagsStore {
 					resolve(data);
 				}
 			});
-		}).catch(error => {
+		});
+
+		promise.catch(error => {
 			window.console.log('chrome.storage.sync.get error', error, error.message);
 		});
+
+		return promise;
 	}
 
-	set (key, value) {
+	set(key, value) {
 		const data = {
 			[key]: value
 		};
 
-		return new Promise((resolve, reject) => {
+		const promise = new Promise((resolve, reject) => {
 			chrome.storage.sync.set(data, () => {
 				if (chrome.runtime.lastError) {
 					reject(chrome.runtime.lastError);
@@ -36,13 +40,17 @@ class TagsStore {
 					resolve();
 				}
 			});
-		}).catch(error => {
+		});
+
+		promise.catch(error => {
 			window.console.log('chrome.storage.sync.set error', error, error.message);
 		});
+
+		return promise;
 	}
 
-	remove (key) {
-		return new Promise((resolve, reject) => {
+	remove(key) {
+		const promise = new Promise((resolve, reject) => {
 			chrome.storage.sync.remove(key, () => {
 				if (chrome.runtime.lastError) {
 					reject(chrome.runtime.lastError);
@@ -50,13 +58,17 @@ class TagsStore {
 					resolve();
 				}
 			});
-		}).catch(error => {
+		});
+
+		promise.catch(error => {
 			window.console.log('chrome.storage.sync.remove error', error, error.message);
 		});
+
+		return promise;
 	}
 
-	clear () {
-		return new Promise((resolve, reject) => {
+	clear() {
+		const promise = new Promise((resolve, reject) => {
 			chrome.storage.sync.clear(() => {
 				if (chrome.runtime.lastError) {
 					reject(chrome.runtime.lastError);
@@ -64,9 +76,13 @@ class TagsStore {
 					resolve();
 				}
 			});
-		}).catch(error => {
+		});
+
+		promise.catch(error => {
 			window.console.log('chrome.storage.sync.clear error', error, error.message);
 		});
+
+		return promise;
 	}
 
 }

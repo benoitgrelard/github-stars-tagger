@@ -5,7 +5,7 @@
  */
 class View extends EventEmitter {
 
-	constructor () {
+	constructor() {
 		super();
 
 		this.refs = {
@@ -15,22 +15,23 @@ class View extends EventEmitter {
 		this.handlers = {};
 	}
 
-	static getRootClass () {
+	static getRootClass() {
 		// override this method
 		return '';
 	}
 
-	createRootElement () {
+	createRootElement() {
 		const rootElem = document.createElement('div');
 		rootElem.classList.add(this.constructor.getRootClass());
+
 		return rootElem;
 	}
 
-	render () {
+	render() {
 		// override this method
 	}
 
-	getElement (selector) {
+	getElement(selector) {
 		if (typeof selector === 'undefined') {
 			return this.refs.root;
 		} else {
@@ -38,11 +39,11 @@ class View extends EventEmitter {
 		}
 	}
 
-	injectInto (parentElem) {
+	injectInto(parentElem) {
 		parentElem.appendChild(this.getElement());
 	}
 
-	injectAfter (siblingElem) {
+	injectAfter(siblingElem) {
 		utils.insertAfter(this.getElement(), siblingElem);
 	}
 }

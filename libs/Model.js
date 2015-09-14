@@ -5,7 +5,7 @@
  */
 class Model extends EventEmitter {
 
-	constructor (data) {
+	constructor(data) {
 		super();
 
 		this.data = data;

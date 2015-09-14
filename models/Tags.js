@@ -5,15 +5,15 @@
  */
 class Tags extends Model {
 
-	constructor (data) {
+	constructor(data) {
 		super(data);
 	}
 
-	getTagsForRepo (repoId) {
+	getTagsForRepo(repoId) {
 		return this.data[repoId] || [];
 	}
 
-	setTagsForRepo (repoId, unserializedTags) {
+	setTagsForRepo(repoId, unserializedTags) {
 		const serializedTags = unserializedTags.split(',')
 			.map(tag => tag.trim())
 			.filter(tag => tag !== '');
@@ -35,27 +35,27 @@ class Tags extends Model {
 		}
 	}
 
-	getDeserializedTagsForRepo (repoId) {
+	getDeserializedTagsForRepo(repoId) {
 		return this.getTagsForRepo(repoId).join(', ');
 	}
 
-	byTag () {
+	byTag() {
 		const pivotedData = {};
+
 		for (const repoId in this.data) {
 			const tags = this.getTagsForRepo(repoId);
-			tags.forEach(tag => pivot(tag, repoId));
+			tags.forEach(tag => {
+				if (!(tag in pivotedData)) { pivotedData[tag] = []; }
+				pivotedData[tag].push(repoId);
+			});
 		}
+
 		return pivotedData;
-
-
-		function pivot(tag, repoId) {
-			if (!(tag in pivotedData)) { pivotedData[tag] = []; }
-			pivotedData[tag].push(repoId);
-		}
 	}
 
-	byTagSortedByUse () {
+	byTagSortedByUse() {
 		const modelByTag = this.byTag();
+
 		return Object.keys(modelByTag)
 			.map(tag => createTagObject(tag))
 			.sort(byMostUsed);

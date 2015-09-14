@@ -5,41 +5,40 @@
  */
 class TagLineView extends View {
 
-	constructor (model, repoId) {
+	constructor(model, repoId) {
 		super();
 
 		this.model = model;
 		this.repoId = repoId;
 	}
 
-	static getRootClass () {
+	static getRootClass() {
 		return 'GsoTagLine';
 	}
 
-	createRootElement () {
+	createRootElement() {
 		const rootElem = document.createElement('p');
 		rootElem.classList.add(TagLineView.getRootClass(), 'repo-list-meta');
+
 		return rootElem;
 	}
 
-	render () {
+	render() {
 		if (this.rendered) {
 			this.removeEvents();
 		}
 
 		const tags = this.model.getDeserializedTagsForRepo(this.repoId);
 		const noTagsModifierClass = 'GsoTagLine--noTags';
-		this.getElement().classList.toggle(noTagsModifierClass, !tags);
 
-		const output = `
+		this.getElement().classList.toggle(noTagsModifierClass, !tags);
+		this.getElement().innerHTML = `
 			<span class="octicon octicon-tag GsoTagLine-icon"></span>
 			<span class="GsoTagLine-tags" title="Click to ${ tags ? 'edit' : 'add' } tags">
 				${ tags || 'no tags (click to add)' }
 			</span>
 			<input class="GsoTagLine-tagsInput" type="text" value="${ tags }" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />
 		`;
-
-		this.getElement().innerHTML = output;
 
 		this.refs.tags = this.getElement('.GsoTagLine-tags');
 		this.refs.tagsInput = this.getElement('.GsoTagLine-tagsInput');
@@ -48,7 +47,7 @@ class TagLineView extends View {
 		this.rendered = true;
 	}
 
-	addEvents () {
+	addEvents() {
 		this.handlers = {
 			modelChange: (changeData, target, eventName) => this.onModelChanged(changeData, target, eventName),
 			tagsClick: event => this.onTagsClicked(event),
@@ -62,7 +61,7 @@ class TagLineView extends View {
 		this.refs.tagsInput.addEventListener('blur', this.handlers.tagsInputBlur);
 	}
 
-	removeEvents () {
+	removeEvents() {
 		this.model.off('change:' + this.repoId, this.handlers.modelChange);
 		this.refs.tags.removeEventListener('click', this.handlers.tagsClick);
 		this.refs.tagsInput.removeEventListener('keydown', this.handlers.tagsInputKeydown);
@@ -71,15 +70,15 @@ class TagLineView extends View {
 		this.handlers = {};
 	}
 
-	onModelChanged () {
+	onModelChanged() {
 		this.render();
 	}
 
-	onTagsClicked () {
+	onTagsClicked() {
 		this.enterEditMode();
 	}
 
-	onTagsInputKeydowned (event) {
+	onTagsInputKeydowned(event) {
 		const ENTER = 13;
 		const ESCAPE = 27;
 
@@ -91,11 +90,11 @@ class TagLineView extends View {
 		}
 	}
 
-	onTagsInputBlurred () {
+	onTagsInputBlurred() {
 		this.exitEditMode();
 	}
 
-	enterEditMode () {
+	enterEditMode() {
 		this.getElement().classList.add('-is-editing');
 
 		// help entering next tag
@@ -107,7 +106,7 @@ class TagLineView extends View {
 		this.refs.tagsInput.setSelectionRange(length, length);
 	}
 
-	exitEditMode (newTags) {
+	exitEditMode(newTags) {
 		if (typeof newTags === 'undefined') {
 			this.render();
 		} else {
