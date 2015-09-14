@@ -6,14 +6,30 @@
 .GsmTagLine-icon {}
 .GsmTagLine--noTags .GsmTagLine-icon { opacity: 0.5; }
 
-.GsmTagLine-tags {
-	display: inline-block;
-	min-width: 20%;
-	cursor: pointer;
-}
-.GsmTagLine-tags:hover { text-decoration: underline; }
+.GsmTagLine-tags {}
 .GsmTagLine.-is-editing .GsmTagLine-tags { display: none; }
 .GsmTagLine--noTags .GsmTagLine-tags { opacity: 0.5; }
+
+.GsmTagLine-separator { opacity: 0.35; }
+.GsmTagLine.-is-editing .GsmTagLine-separator { display: none; }
+
+.GsmTagLine-editButton {
+	padding: 0.5em;
+	position: relative;
+	margin: -0.5em;
+
+	background-color: transparent;
+	border: none;
+	opacity: 0.5;
+	outline: none;
+
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+}
+.GsmTagLine-editButton:hover,
+.GsmTagLine-editButton:focus { opacity: 1; }
+.GsmTagLine.-is-editing .GsmTagLine-editButton { display: none; }
 
 .GsmTagLine-tagsInput {
 	display: none;
