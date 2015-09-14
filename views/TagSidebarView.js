@@ -85,7 +85,7 @@ class TagSidebarView extends View {
 		this.handlers = {};
 	}
 
-	onModelChanged (changeData, target, eventName) {
+	onModelChanged () {
 		this.render();
 	}
 

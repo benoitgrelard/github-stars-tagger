@@ -71,11 +71,11 @@ class TagLineView extends View {
 		this.handlers = {};
 	}
 
-	onModelChanged (changeData, target, eventName) {
+	onModelChanged () {
 		this.render();
 	}
 
-	onTagsClicked (event) {
+	onTagsClicked () {
 		this.enterEditMode();
 	}
 
@@ -91,7 +91,7 @@ class TagLineView extends View {
 		}
 	}
 
-	onTagsInputBlurred (event) {
+	onTagsInputBlurred () {
 		this.exitEditMode();
 	}
 
