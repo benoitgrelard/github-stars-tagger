@@ -25,6 +25,7 @@
 
 			promise.catch(error => {
 				console.log('chrome.storage.sync.get error', error, error.message);
+				GSM.utils.track('Sync', 'get', 'error', error.message);
 			});
 
 			return promise;
@@ -47,6 +48,7 @@
 
 			promise.catch(error => {
 				console.log('chrome.storage.sync.set error', error, error.message);
+				GSM.utils.track('Sync', 'set', 'error', error.message);
 			});
 
 			return promise;
@@ -65,6 +67,7 @@
 
 			promise.catch(error => {
 				console.log('chrome.storage.sync.remove error', error, error.message);
+				GSM.utils.track('Sync', 'remove', 'error', error.message);
 			});
 
 			return promise;
@@ -83,6 +86,7 @@
 
 			promise.catch(error => {
 				console.log('chrome.storage.sync.clear error', error, error.message);
+				GSM.utils.track('Sync', 'clear', 'error', error.message);
 			});
 
 			return promise;

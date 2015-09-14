@@ -23,6 +23,14 @@
 			}
 
 			return res;
+		},
+
+		message(command, data) {
+			chrome.runtime.sendMessage({ command, data });
+		},
+
+		track(category, action, label, value) {
+			utils.message('trackEvent', { category, action, label, value });
 		}
 
 	};
