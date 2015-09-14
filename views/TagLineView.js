@@ -79,6 +79,7 @@
 
 		onEditButtonClicked() {
 			this.enterEditMode();
+			GSM.utils.track('TagLine', 'edit');
 		}
 
 		onTagsInputKeydowned(event) {
@@ -87,14 +88,17 @@
 
 			if (event.keyCode === ESCAPE) {
 				this.exitEditMode();
+				GSM.utils.track('TagLine', 'escape');
 			} else if (event.keyCode === ENTER) {
 				const newTags = event.currentTarget.value;
 				this.exitEditMode(newTags);
+				GSM.utils.track('TagLine', 'save');
 			}
 		}
 
 		onTagsInputBlurred() {
 			this.exitEditMode();
+			GSM.utils.track('TagLine', 'blur');
 		}
 
 		enterEditMode() {

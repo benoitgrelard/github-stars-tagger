@@ -75,20 +75,29 @@
 
 		addEvents() {
 			this.handlers = {
-				modelChange: (changeData, target, eventName) => this.onModelChanged(changeData, target, eventName)
+				modelChange: (changeData, target, eventName) => this.onModelChanged(changeData, target, eventName),
+				click: (event) => this.onClicked(event)
 			};
 
 			this.model.on('change', this.handlers.modelChange);
+			this.getElement().addEventListener('click', this.handlers.click, false);
 		}
 
 		removeEvents() {
 			this.model.off('change', this.handlers.modelChange);
+			this.getElement().removeEventListener('click', this.handlers.click, false);
 
 			this.handlers = {};
 		}
 
 		onModelChanged() {
 			this.render();
+		}
+
+		onClicked(event) {
+			if (event.target && event.target.classList.contains('filter-item')) {
+				GSM.utils.track('TagSidebar', 'click', 'tag');
+			}
 		}
 
 	}

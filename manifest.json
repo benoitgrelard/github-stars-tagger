@@ -28,11 +28,14 @@
 			]
 		}
 	],
+	"content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
 	"permissions": [
 		"storage"
 	],
 	"background": {
-		"page": "bg.html"
+		"scripts": [
+			"background.js"
+		]
 	},
 	"manifest_version": 2,
 	"minimum_chrome_version": "45"
