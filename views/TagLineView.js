@@ -37,13 +37,13 @@
 			this.getElement().classList.toggle(noTagsModifierClass, !tags);
 			this.getElement().innerHTML = `
 				<span class="octicon octicon-tag GsmTagLine-icon"></span>
-				<span class="GsmTagLine-tags" title="Click to ${ tags ? 'edit' : 'add' } tags">
-					${ tags || 'no tags (click to add)' }
-				</span>
+				<span class="GsmTagLine-tags">${ tags || 'no tags' }</span>
+				<span class="GsmTagLine-separator"> — </span>
+				<button class="GsmTagLine-editButton" type="button" title="Click to edit">Edit</button>
 				<input class="GsmTagLine-tagsInput" type="text" value="${ tags }" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />
 			`;
 
-			this.refs.tags = this.getElement('.GsmTagLine-tags');
+			this.refs.editButton = this.getElement('.GsmTagLine-editButton');
 			this.refs.tagsInput = this.getElement('.GsmTagLine-tagsInput');
 
 			this.addEvents();
@@ -53,20 +53,20 @@
 		addEvents() {
 			this.handlers = {
 				modelChange: (changeData, target, eventName) => this.onModelChanged(changeData, target, eventName),
-				tagsClick: event => this.onTagsClicked(event),
+				editButtonClick: event => this.onEditButtonClicked(event),
 				tagsInputKeydown: event => this.onTagsInputKeydowned(event),
 				tagsInputBlur: event => this.onTagsInputBlurred(event)
 			};
 
 			this.model.on('change:' + this.repoId, this.handlers.modelChange);
-			this.refs.tags.addEventListener('click', this.handlers.tagsClick);
+			this.refs.editButton.addEventListener('click', this.handlers.editButtonClick);
 			this.refs.tagsInput.addEventListener('keydown', this.handlers.tagsInputKeydown);
 			this.refs.tagsInput.addEventListener('blur', this.handlers.tagsInputBlur);
 		}
 
 		removeEvents() {
 			this.model.off('change:' + this.repoId, this.handlers.modelChange);
-			this.refs.tags.removeEventListener('click', this.handlers.tagsClick);
+			this.refs.editButton.removeEventListener('click', this.handlers.editButtonClick);
 			this.refs.tagsInput.removeEventListener('keydown', this.handlers.tagsInputKeydown);
 			this.refs.tagsInput.removeEventListener('blur', this.handlers.tagsInputBlur);
 
@@ -77,7 +77,7 @@
 			this.render();
 		}
 
-		onTagsClicked() {
+		onEditButtonClicked() {
 			this.enterEditMode();
 		}
 
