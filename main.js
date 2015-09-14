@@ -43,7 +43,7 @@ function init() {
 
 			function addTagLines() {
 				const starredRepoElems = document.querySelectorAll('.repo-list-item');
-				utils.forEach(starredRepoElems, addTagLine);
+				Array.from(starredRepoElems).forEach(starredRepoElem => addTagLine(starredRepoElem));
 
 				function addTagLine(starredRepoElem) {
 					const repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
@@ -55,7 +55,7 @@ function init() {
 
 			function removeTagLines() {
 				const starredRepoElems = document.querySelectorAll('.repo-list-item');
-				utils.forEach(starredRepoElems, removeTagLine);
+				Array.from(starredRepoElems).forEach(starredRepoElem => removeTagLine(starredRepoElem));
 
 				function removeTagLine(starredRepoElem) {
 					const oldTagLineElem = starredRepoElem.querySelector('.' + TagLineView.getRootClass());

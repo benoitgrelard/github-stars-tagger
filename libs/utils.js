@@ -2,12 +2,6 @@
 
 const utils = {
 
-	forEach (array, callback, scope) {
-		for (let i=0; i<array.length; i++) {
-			callback.call(scope, array[i], i);
-		}
-	},
-
 	insertAfter (newNode, referenceNode) {
 		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 	},

@@ -57,8 +57,8 @@ class Tags extends Model {
 	byTagSortedByUse () {
 		const modelByTag = this.byTag();
 		return Object.keys(modelByTag)
-			.map(createTagObject)
-			.sort(sortByMostUsedThenAlphanumerically);
+			.map(tag => createTagObject(tag))
+			.sort(byMostUsed);
 
 
 		function createTagObject(tag) {
@@ -68,8 +68,9 @@ class Tags extends Model {
 			};
 		}
 
-		function sortByMostUsedThenAlphanumerically(tagObject1, tagObject2) {
+		function byMostUsed(tagObject1, tagObject2) {
 			const diff = tagObject2.repos.length - tagObject1.repos.length;
+			// default to alphanumerical sort
 			if (diff === 0) { return tagObject2.name < tagObject1.name; }
 			return diff;
 		}
