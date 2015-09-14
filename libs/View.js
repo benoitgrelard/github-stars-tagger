@@ -21,7 +21,7 @@ class View extends EventEmitter {
 	}
 
 	createRootElement () {
-		var rootElem = document.createElement('div');
+		const rootElem = document.createElement('div');
 		rootElem.classList.add(this.constructor.getRootClass());
 		return rootElem;
 	}

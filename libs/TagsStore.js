@@ -24,8 +24,9 @@ class TagsStore {
 	}
 
 	set (key, value) {
-		var data = {};
-		data[key] = value;
+		const data = {
+			[key]: value
+		};
 
 		return new Promise((resolve, reject) => {
 			chrome.storage.sync.set(data, () => {

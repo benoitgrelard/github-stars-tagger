@@ -20,8 +20,8 @@ class TagSidebarView extends View {
 			this.removeEvents();
 		}
 
-		var sortedTags = this.model.byTagSortedByUse();
-		var output = `
+		const sortedTags = this.model.byTagSortedByUse();
+		const output = `
 			<h3>Filter by tags</h3>
 			<ul class="filter-list small">
 				${ this.renderTags(sortedTags) }

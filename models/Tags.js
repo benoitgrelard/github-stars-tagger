@@ -14,22 +14,21 @@ class Tags extends Model {
 	}
 
 	setTagsForRepo (repoId, unserializedTags) {
-		var serializedTags = unserializedTags.split(',')
+		const serializedTags = unserializedTags.split(',')
 			.map(tag => tag.trim())
 			.filter(tag => tag !== '');
 
-		var hasNoTags = serializedTags.length === 0;
-		var repoChangeEventName = 'change:' + repoId;
-		var changeData = null;
+		const hasNoTags = serializedTags.length === 0;
+		const repoChangeEventName = 'change:' + repoId;
 
 		if (hasNoTags) {
 			delete this.data[repoId];
-			changeData = { key: repoId, deleted: true };
+			const changeData = { key: repoId, deleted: true };
 			this.emit('change', changeData);
 			this.emit(repoChangeEventName, changeData);
 		} else {
-			var newTags = utils.unique(serializedTags);
-			changeData = { key: repoId, value: newTags };
+			const newTags = utils.unique(serializedTags);
+			const changeData = { key: repoId, value: newTags };
 			this.data[repoId] = newTags;
 			this.emit('change', changeData);
 			this.emit(repoChangeEventName, changeData);
@@ -41,22 +40,22 @@ class Tags extends Model {
 	}
 
 	byTag () {
-		var pivotedData = {};
-		for (var repoId in this.data) {
-			var tags = this.getTagsForRepo(repoId);
-			tags.forEach(pivot);
+		const pivotedData = {};
+		for (const repoId in this.data) {
+			const tags = this.getTagsForRepo(repoId);
+			tags.forEach(tag => pivot(tag, repoId));
 		}
 		return pivotedData;
 
 
-		function pivot(tag) {
+		function pivot(tag, repoId) {
 			if (!(tag in pivotedData)) { pivotedData[tag] = []; }
 			pivotedData[tag].push(repoId);
 		}
 	}
 
 	byTagSortedByUse () {
-		var modelByTag = this.byTag();
+		const modelByTag = this.byTag();
 		return Object.keys(modelByTag)
 			.map(createTagObject)
 			.sort(sortByMostUsedThenAlphanumerically);
@@ -70,7 +69,7 @@ class Tags extends Model {
 		}
 
 		function sortByMostUsedThenAlphanumerically(tagObject1, tagObject2) {
-			var diff = tagObject2.repos.length - tagObject1.repos.length;
+			const diff = tagObject2.repos.length - tagObject1.repos.length;
 			if (diff === 0) { return tagObject2.name < tagObject1.name; }
 			return diff;
 		}

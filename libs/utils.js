@@ -1,9 +1,9 @@
 'use strict';
 
-var utils = {
+const utils = {
 
 	forEach (array, callback, scope) {
-		for (var i=0; i<array.length; i++) {
+		for (let i=0; i<array.length; i++) {
 			callback.call(scope, array[i], i);
 		}
 	},
@@ -13,10 +13,10 @@ var utils = {
 	},
 
 	unique (array) {
-		var hash = {};
-		var res = [];
-		for (var i=0; i<array.length; i++) {
-			var item = array[i];
+		const hash = {};
+		const res = [];
+		for (let i=0; i<array.length; i++) {
+			const item = array[i];
 			if (!hash[item]) {
 				hash[item] = true;
 				res.push(item);

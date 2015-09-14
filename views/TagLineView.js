@@ -17,7 +17,7 @@ class TagLineView extends View {
 	}
 
 	createRootElement () {
-		var rootElem = document.createElement('p');
+		const rootElem = document.createElement('p');
 		rootElem.classList.add(TagLineView.getRootClass(), 'repo-list-meta');
 		return rootElem;
 	}
@@ -27,11 +27,11 @@ class TagLineView extends View {
 			this.removeEvents();
 		}
 
-		var tags = this.model.getDeserializedTagsForRepo(this.repoId);
-		var noTagsModifierClass = 'GsoTagLine--noTags';
+		const tags = this.model.getDeserializedTagsForRepo(this.repoId);
+		const noTagsModifierClass = 'GsoTagLine--noTags';
 		this.getElement().classList.toggle(noTagsModifierClass, !tags);
 
-		var output = `
+		const output = `
 			<span class="octicon octicon-tag GsoTagLine-icon"></span>
 			<span class="GsoTagLine-tags" title="Click to ${ tags ? 'edit' : 'add' } tags">
 				${ tags || 'no tags (click to add)' }
@@ -80,13 +80,13 @@ class TagLineView extends View {
 	}
 
 	onTagsInputKeydowned (event) {
-		var ENTER = 13;
-		var ESCAPE = 27;
+		const ENTER = 13;
+		const ESCAPE = 27;
 
 		if (event.keyCode === ESCAPE) {
 			this.exitEditMode();
 		} else if (event.keyCode === ENTER) {
-			var newTags = event.currentTarget.value;
+			const newTags = event.currentTarget.value;
 			this.exitEditMode(newTags);
 		}
 	}
@@ -103,7 +103,7 @@ class TagLineView extends View {
 
 		// focus at the end of input
 		this.refs.tagsInput.focus();
-		var length = this.refs.tagsInput.value.length;
+		const length = this.refs.tagsInput.value.length;
 		this.refs.tagsInput.setSelectionRange(length, length);
 	}
 
