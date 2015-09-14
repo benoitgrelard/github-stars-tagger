@@ -1,79 +1,88 @@
-/**
- * @class Tags
- */
-function Tags(data) {
-	// super
-	Model.call(this, data);
-}
+((window) => {
 
-Tags.prototype = Object.create(Model.prototype);
-Tags.prototype.constructor = Tags;
+	'use strict';
 
 
+	/**
+	 * @class Tags
+	 */
+	class Tags extends GSO.Model {
 
-Tags.prototype.getTagsForRepo = function(repoId) {
-	return this.data[repoId] || [];
-};
+		constructor(data) {
+			super(data);
+		}
 
-Tags.prototype.setTagsForRepo = function(repoId, unserializedTags) {
-	var serializedTags = unserializedTags.split(',')
-		.map(function(tag) { return tag.trim(); })
-		.filter(function(tag) { return tag !== ''; });
+		getTagsForRepo(repoId) {
+			return this.data[repoId] || [];
+		}
 
-	var hasNoTags = serializedTags.length === 0;
-	var repoChangeEventName = 'change:' + repoId;
-	var changeData = null;
+		setTagsForRepo(repoId, unserializedTags) {
+			const serializedTags = unserializedTags.split(',')
+				.map(tag => tag.trim())
+				.filter(tag => tag !== '');
 
-	if (hasNoTags) {
-		delete this.data[repoId];
-		changeData = { key: repoId, deleted: true };
-		this.emit('change', changeData);
-		this.emit(repoChangeEventName, changeData);
-	} else {
-		var newTags = utils.unique(serializedTags);
-		changeData = { key: repoId, value: newTags };
-		this.data[repoId] = newTags;
-		this.emit('change', changeData);
-		this.emit(repoChangeEventName, changeData);
+			const hasNoTags = serializedTags.length === 0;
+			const repoChangeEventName = 'change:' + repoId;
+
+			if (hasNoTags) {
+				delete this.data[repoId];
+				const changeData = { key: repoId, deleted: true };
+				this.emit('change', changeData);
+				this.emit(repoChangeEventName, changeData);
+			} else {
+				const newTags = GSO.utils.unique(serializedTags);
+				const changeData = { key: repoId, value: newTags };
+				this.data[repoId] = newTags;
+				this.emit('change', changeData);
+				this.emit(repoChangeEventName, changeData);
+			}
+		}
+
+		getDeserializedTagsForRepo(repoId) {
+			return this.getTagsForRepo(repoId).join(', ');
+		}
+
+		byTag() {
+			const pivotedData = {};
+
+			for (const repoId in this.data) {
+				const tags = this.getTagsForRepo(repoId);
+				tags.forEach(tag => {
+					if (!(tag in pivotedData)) { pivotedData[tag] = []; }
+					pivotedData[tag].push(repoId);
+				});
+			}
+
+			return pivotedData;
+		}
+
+		byTagSortedByUse() {
+			const modelByTag = this.byTag();
+
+			return Object.keys(modelByTag)
+				.map(tag => createTagObject(tag))
+				.sort(byMostUsed);
+
+
+			function createTagObject(tag) {
+				return {
+					name: tag,
+					repos: modelByTag[tag]
+				};
+			}
+
+			function byMostUsed(tagObject1, tagObject2) {
+				const diff = tagObject2.repos.length - tagObject1.repos.length;
+				// default to alphanumerical sort
+				if (diff === 0) { return tagObject2.name < tagObject1.name; }
+				return diff;
+			}
+		}
+
 	}
-};
-
-Tags.prototype.getDeserializedTagsForRepo = function(repoId) {
-	return this.getTagsForRepo(repoId).join(', ');
-};
-
-Tags.prototype.byTag = function() {
-	var pivotedData = {};
-	for (var repoId in this.data) {
-		var tags = this.getTagsForRepo(repoId);
-		tags.forEach(pivot);
-	}
-	return pivotedData;
 
 
-	function pivot(tag) {
-		if (!(tag in pivotedData)) { pivotedData[tag] = []; }
-		pivotedData[tag].push(repoId);
-	}
-};
+	window.GSO = window.GSO || {};
+	GSO.Tags = Tags;
 
-Tags.prototype.byTagSortedByUse = function() {
-	var modelByTag = this.byTag();
-	return Object.keys(modelByTag)
-		.map(createTagObject)
-		.sort(sortByMostUsedThenAlphanumerically);
-
-
-	function createTagObject(tag) {
-		return {
-			name: tag,
-			repos: modelByTag[tag]
-		};
-	}
-
-	function sortByMostUsedThenAlphanumerically(tagTags1, tagTags2) {
-		var diff = tagTags2.repos.length - tagTags1.repos.length;
-		if (diff === 0) { return tagTags2.name < tagTags1.name; }
-		return diff;
-	}
-};
+})(window);

@@ -1,12 +1,23 @@
-/**
- * @class Model
- */
-function Model(data) {
-	// super
-	EventEmitter.call(this);
+((window) => {
 
-	this.data = data;
-}
+	'use strict';
 
-Model.prototype = Object.create(EventEmitter.prototype);
-Model.prototype.constructor = Model;
+
+	/**
+	 * @class Model
+	 */
+	class Model extends GSO.EventEmitter {
+
+		constructor(data) {
+			super();
+
+			this.data = data;
+		}
+
+	}
+
+
+	window.GSO = window.GSO || {};
+	GSO.Model = Model;
+
+})(window);

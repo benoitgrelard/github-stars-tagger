@@ -1,27 +1,34 @@
+((window) => {
 
-var utils = {
+	'use strict';
 
-	forEach: function(array, callback, scope) {
-		for (var i=0; i<array.length; i++) {
-			callback.call(scope, array[i], i);
-		}
-	},
 
-	insertAfter: function(newNode, referenceNode) {
-		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-	},
+	const utils = {
 
-	unique: function(array) {
-		var hash = {};
-		var res = [];
-		for (var i=0; i<array.length; i++) {
-			var item = array[i];
-			if (!hash[item]) {
-				hash[item] = true;
-				res.push(item);
+		insertAfter(newNode, referenceNode) {
+			referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+		},
+
+		unique(array) {
+			const hash = {};
+			const res = [];
+
+			for (let i = 0; i < array.length; i++) {
+				const item = array[i];
+
+				if (!hash[item]) {
+					hash[item] = true;
+					res.push(item);
+				}
 			}
-		}
-		return res;
-	}
 
-};
+			return res;
+		}
+
+	};
+
+
+	window.GSO = window.GSO || {};
+	GSO.utils = utils;
+
+})(window);

@@ -1,36 +1,48 @@
-/**
- * @class EventEmitter
- */
-function EventEmitter() {
-	this._listeners = [];
-}
+((window) => {
 
-EventEmitter.prototype = {
+	'use strict';
 
-	constructor: EventEmitter,
 
-	on: function(eventName, callback) {
-		this._listeners.push({
-			name: eventName,
-			callback: callback
-		});
-		return this;
-	},
+	/**
+	 * @class EventEmitter
+	 */
+	class EventEmitter {
 
-	off: function(eventName, callback) {
-		this._listeners.forEach(function(listener, index) {
-			if (listener.name === eventName && listener.callback === callback) {
-				this._listeners.splice(index, 1);
-			}
-		}, this);
-		return this;
-	},
+		constructor() {
+			this._listeners = [];
+		}
 
-	emit: function(eventName, data) {
-		this._listeners
-			.filter(function(listener) { return listener.name === eventName; }, this)
-			.forEach(function(listener) { listener.callback(data, this, eventName); }, this);
-		return this;
+		on(eventName, callback) {
+			this._listeners.push({
+				name: eventName,
+				callback: callback
+			});
+
+			return this;
+		}
+
+		off(eventName, callback) {
+			this._listeners.forEach((listener, index) => {
+				if (listener.name === eventName && listener.callback === callback) {
+					this._listeners.splice(index, 1);
+				}
+			});
+
+			return this;
+		}
+
+		emit(eventName, data) {
+			this._listeners
+				.filter(listener => listener.name === eventName)
+				.forEach(listener => listener.callback(data, this, eventName));
+
+			return this;
+		}
+
 	}
 
-};
+
+	window.GSO = window.GSO || {};
+	GSO.EventEmitter = EventEmitter;
+
+})(window);

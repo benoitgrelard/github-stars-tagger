@@ -3,18 +3,18 @@ init();
 
 
 function init() {
+	'use strict';
 
-	// TODO: purge unstarred repos (based of real github api)
-	var tagsStore = new TagsStore();
+	const tagsStore = new GSO.TagsStore();
+
 	tagsStore.get()
-		.then(initModel)
+		.then(createModel)
 		.then(initViews)
 		.then(initSync);
 
 
-	function initModel(data) {
-		var tagsModel = new Tags(data);
-		return tagsModel;
+	function createModel(data) {
+		return new GSO.Tags(data);
 	}
 
 	function initViews(tagsModel) {
@@ -34,37 +34,37 @@ function init() {
 
 			function onAjaxPageRefreshed(newPath) {
 				removeTagLines();
-				var shouldAddTagLines = isCurrentPathSupported(newPath);
+				const shouldAddTagLines = isCurrentPathSupported(newPath);
 				if (shouldAddTagLines) {
 					addTagLines();
 				}
 			}
 
 			function addTagLines() {
-				var starredRepoElems = document.querySelectorAll('.repo-list-item');
-				utils.forEach(starredRepoElems, addTagLine);
+				const starredRepoElems = document.querySelectorAll('.repo-list-item');
+				Array.from(starredRepoElems).forEach(starredRepoElem => addTagLine(starredRepoElem));
 
 				function addTagLine(starredRepoElem) {
-					var repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
-					var view = new TagLineView(model, repoId);
+					const repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
+					const view = new GSO.TagLineView(model, repoId);
 					view.render();
 					view.injectInto(starredRepoElem);
 				}
 			}
 
 			function removeTagLines() {
-				var starredRepoElems = document.querySelectorAll('.repo-list-item');
-				utils.forEach(starredRepoElems, removeTagLine);
+				const starredRepoElems = document.querySelectorAll('.repo-list-item');
+				Array.from(starredRepoElems).forEach(starredRepoElem => removeTagLine(starredRepoElem));
 
 				function removeTagLine(starredRepoElem) {
-					var oldTagLineElem = starredRepoElem.querySelector('.' + TagLineView.rootClass);
+					const oldTagLineElem = starredRepoElem.querySelector('.' + GSO.TagLineView.getRootClass());
 					if (oldTagLineElem) { oldTagLineElem.remove(); }
 				}
 			}
 		}
 
 		function initTagSidebar(model) {
-			var ajaxContentElem = document.getElementById('js-pjax-container');
+			const ajaxContentElem = document.getElementById('js-pjax-container');
 
 			// on page load
 			addSidebar();
@@ -75,33 +75,37 @@ function init() {
 
 			function onAjaxPageRefreshed(newPath) {
 				removeSidebar();
-				var shouldAddSidebar = isCurrentPathSupported(newPath);
+				const shouldAddSidebar = isCurrentPathSupported(newPath);
 				if (shouldAddSidebar) {
 					addSidebar();
 				}
 			}
 
 			function addSidebar() {
-				var firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
-				var view = new TagSidebarView(model);
+				const firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
+				const view = new GSO.TagSidebarView(model);
 				view.render();
 				view.injectAfter(firstSidebarSeparatorElem);
 			}
 
 			function removeSidebar() {
-				var oldTagSidebarElem = ajaxContentElem.querySelector('.' + TagSidebarView.rootClass);
+				const oldTagSidebarElem = ajaxContentElem.querySelector('.' + GSO.TagSidebarView.getRootClass());
 				if (oldTagSidebarElem) { oldTagSidebarElem.remove(); }
 			}
 		}
 
 		function addAjaxPageRefreshEventListener(callback) {
-			var ajaxContentElem = document.getElementById('js-pjax-container');
-			var observer = new MutationObserver(function(mutations) {
-				mutations.forEach(function(mutation) {
-					if (mutation.addedNodes.length > 0) { callback(document.location.pathname); }
+			const ajaxContentElem = document.getElementById('js-pjax-container');
+
+			const observer = new MutationObserver(mutations => {
+				mutations.forEach(mutation => {
+					if (mutation.addedNodes.length > 0) {
+						callback(document.location.pathname);
+					}
 				});
 			});
-			var config = { childList: true };
+
+			const config = { childList: true };
 			observer.observe(ajaxContentElem, config);
 		}
 
