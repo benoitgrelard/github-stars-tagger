@@ -6,7 +6,7 @@
 	/**
 	 * @class TagSidebarView
 	 */
-	class TagSidebarView extends GSO.View {
+	class TagSidebarView extends GSM.View {
 
 		constructor(model) {
 			super();
@@ -15,7 +15,7 @@
 		}
 
 		static getRootClass() {
-			return 'GsoTagSidebar';
+			return 'GsmTagSidebar';
 		}
 
 		render() {
@@ -39,7 +39,7 @@
 
 		renderTags(sortedTags) {
 			if (sortedTags.length === 0) {
-				return `<span class="filter-item GsoTagSidebar-noTagsMessage">No tags.</span>`;
+				return `<span class="filter-item GsmTagSidebar-noTagsMessage">No tags.</span>`;
 			}
 			return sortedTags.map(tagModel => this.renderTag(tagModel)).join('');
 		}
@@ -47,13 +47,13 @@
 		renderTag(tagModel) {
 			return `
 				<li>
-					<label class="GsoTagSidebar-label">
+					<label class="GsmTagSidebar-label">
 						<span class="filter-item">
 							${ tagModel.name }
 							<span class="count">${ tagModel.repos.length }</span>
 						</span>
-						<input class="GsoTagSidebar-checkbox" type="checkbox" />
-						<ul class="GsoRepoList">
+						<input class="GsmTagSidebar-checkbox" type="checkbox" />
+						<ul class="GsmRepoList">
 							${ this.renderTagRepos(tagModel) }
 						</ul>
 					</label>
@@ -67,7 +67,7 @@
 
 		renderTagRepo(repoId) {
 			return `
-				<li class="GsoRepoList-item">
+				<li class="GsmRepoList-item">
 					<a href="/${ repoId }">${ repoId }</a>
 				</li>
 			`;
@@ -94,7 +94,7 @@
 	}
 
 
-	window.GSO = window.GSO || {};
-	GSO.TagSidebarView = TagSidebarView;
+	window.GSM = window.GSM || {};
+	GSM.TagSidebarView = TagSidebarView;
 
 })(window);

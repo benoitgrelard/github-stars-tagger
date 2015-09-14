@@ -91,7 +91,7 @@
 	}
 
 
-	window.GSO = window.GSO || {};
-	GSO.TagsStore = TagsStore;
+	window.GSM = window.GSM || {};
+	GSM.TagsStore = TagsStore;
 
 })(window);

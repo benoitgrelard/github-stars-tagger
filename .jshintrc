@@ -64,6 +64,6 @@
 
 	"globals": {
 		"chrome": false,
-		"GSO": false
+		"GSM": false
 	}
 }

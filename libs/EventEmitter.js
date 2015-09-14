@@ -42,7 +42,7 @@
 	}
 
 
-	window.GSO = window.GSO || {};
-	GSO.EventEmitter = EventEmitter;
+	window.GSM = window.GSM || {};
+	GSM.EventEmitter = EventEmitter;
 
 })(window);

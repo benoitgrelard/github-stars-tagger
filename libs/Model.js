@@ -6,7 +6,7 @@
 	/**
 	 * @class Model
 	 */
-	class Model extends GSO.EventEmitter {
+	class Model extends GSM.EventEmitter {
 
 		constructor(data) {
 			super();
@@ -17,7 +17,7 @@
 	}
 
 
-	window.GSO = window.GSO || {};
-	GSO.Model = Model;
+	window.GSM = window.GSM || {};
+	GSM.Model = Model;
 
 })(window);

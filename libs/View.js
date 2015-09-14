@@ -6,7 +6,7 @@
 	/**
 	 * @class View
 	 */
-	class View extends GSO.EventEmitter {
+	class View extends GSM.EventEmitter {
 
 		constructor() {
 			super();
@@ -47,12 +47,12 @@
 		}
 
 		injectAfter(siblingElem) {
-			GSO.utils.insertAfter(this.getElement(), siblingElem);
+			GSM.utils.insertAfter(this.getElement(), siblingElem);
 		}
 	}
 
 
-	window.GSO = window.GSO || {};
-	GSO.View = View;
+	window.GSM = window.GSM || {};
+	GSM.View = View;
 
 })(window);

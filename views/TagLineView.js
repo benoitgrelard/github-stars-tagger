@@ -6,7 +6,7 @@
 	/**
 	 * @class TagLineView
 	 */
-	class TagLineView extends GSO.View {
+	class TagLineView extends GSM.View {
 
 		constructor(model, repoId) {
 			super();
@@ -16,7 +16,7 @@
 		}
 
 		static getRootClass() {
-			return 'GsoTagLine';
+			return 'GsmTagLine';
 		}
 
 		createRootElement() {
@@ -32,19 +32,19 @@
 			}
 
 			const tags = this.model.getDeserializedTagsForRepo(this.repoId);
-			const noTagsModifierClass = 'GsoTagLine--noTags';
+			const noTagsModifierClass = 'GsmTagLine--noTags';
 
 			this.getElement().classList.toggle(noTagsModifierClass, !tags);
 			this.getElement().innerHTML = `
-				<span class="octicon octicon-tag GsoTagLine-icon"></span>
-				<span class="GsoTagLine-tags" title="Click to ${ tags ? 'edit' : 'add' } tags">
+				<span class="octicon octicon-tag GsmTagLine-icon"></span>
+				<span class="GsmTagLine-tags" title="Click to ${ tags ? 'edit' : 'add' } tags">
 					${ tags || 'no tags (click to add)' }
 				</span>
-				<input class="GsoTagLine-tagsInput" type="text" value="${ tags }" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />
+				<input class="GsmTagLine-tagsInput" type="text" value="${ tags }" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />
 			`;
 
-			this.refs.tags = this.getElement('.GsoTagLine-tags');
-			this.refs.tagsInput = this.getElement('.GsoTagLine-tagsInput');
+			this.refs.tags = this.getElement('.GsmTagLine-tags');
+			this.refs.tagsInput = this.getElement('.GsmTagLine-tagsInput');
 
 			this.addEvents();
 			this.rendered = true;
@@ -122,7 +122,7 @@
 	}
 
 
-	window.GSO = window.GSO || {};
-	GSO.TagLineView = TagLineView;
+	window.GSM = window.GSM || {};
+	GSM.TagLineView = TagLineView;
 
 })(window);

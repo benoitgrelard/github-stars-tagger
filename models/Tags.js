@@ -6,7 +6,7 @@
 	/**
 	 * @class Tags
 	 */
-	class Tags extends GSO.Model {
+	class Tags extends GSM.Model {
 
 		constructor(data) {
 			super(data);
@@ -30,7 +30,7 @@
 				this.emit('change', changeData);
 				this.emit(repoChangeEventName, changeData);
 			} else {
-				const newTags = GSO.utils.unique(serializedTags);
+				const newTags = GSM.utils.unique(serializedTags);
 				const changeData = { key: repoId, value: newTags };
 				this.data[repoId] = newTags;
 				this.emit('change', changeData);
@@ -82,7 +82,7 @@
 	}
 
 
-	window.GSO = window.GSO || {};
-	GSO.Tags = Tags;
+	window.GSM = window.GSM || {};
+	GSM.Tags = Tags;
 
 })(window);

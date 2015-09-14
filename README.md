@@ -1,5 +1,5 @@
-# github-stars-organiser
-A Google Chrome extension to organise your starred repositories on github
+# github-stars-manager
+A Google Chrome extension to manage your starred repositories on github using tags
 
 ## Disclaimer
 Please note that this extension is currently under development and as such hasn't been published to the Chrome Web Store yet.

@@ -1,20 +1,20 @@
 /**
  * Tag sidebar
  */
-.GsoTagSidebar {}
+.GsmTagSidebar {}
 
-.GsoTagSidebar-noTagsMessage {}
-.GsoTagSidebar-noTagsMessage:hover {
+.GsmTagSidebar-noTagsMessage {}
+.GsmTagSidebar-noTagsMessage:hover {
 	background-color: transparent !important;
 	cursor: auto;
 }
 
-.GsoTagSidebar-label {
+.GsmTagSidebar-label {
 	font-size: inherit;
 	font-weight: inherit;
 }
 
-.GsoTagSidebar-checkbox {
+.GsmTagSidebar-checkbox {
 	display: none;
 }
 
@@ -23,12 +23,12 @@
 /**
  * Repo list
  */
-.GsoRepoList {
+.GsmRepoList {
 	display: none;
 	list-style: none;
 }
 
-.GsoRepoList-item {
+.GsmRepoList-item {
 	display: block;
 	padding: 4px 10px;
 
@@ -41,10 +41,10 @@
 	overflow: hidden;
 }
 
-.GsoRepoList-item a {
+.GsmRepoList-item a {
 	display: block;
 }
 
-.GsoTagSidebar-checkbox:checked + .GsoRepoList {
+.GsmTagSidebar-checkbox:checked + .GsmRepoList {
 	display: block;
 }

@@ -28,7 +28,7 @@
 	};
 
 
-	window.GSO = window.GSO || {};
-	GSO.utils = utils;
+	window.GSM = window.GSM || {};
+	GSM.utils = utils;
 
 })(window);

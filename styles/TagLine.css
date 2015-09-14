@@ -1,22 +1,22 @@
 /**
  * Tag line
  */
-.GsoTagLine {}
+.GsmTagLine {}
 
-.GsoTagLine-icon {}
-.GsoTagLine--noTags .GsoTagLine-icon { opacity: 0.5; }
+.GsmTagLine-icon {}
+.GsmTagLine--noTags .GsmTagLine-icon { opacity: 0.5; }
 
-.GsoTagLine-tags {
+.GsmTagLine-tags {
 	display: inline-block;
 	min-width: 20%;
 	cursor: pointer;
 }
-.GsoTagLine-tags:hover { text-decoration: underline; }
-.GsoTagLine.-is-editing .GsoTagLine-tags { display: none; }
-.GsoTagLine--noTags .GsoTagLine-tags { opacity: 0.5; }
+.GsmTagLine-tags:hover { text-decoration: underline; }
+.GsmTagLine.-is-editing .GsmTagLine-tags { display: none; }
+.GsmTagLine--noTags .GsmTagLine-tags { opacity: 0.5; }
 
-.GsoTagLine-tagsInput {
+.GsmTagLine-tagsInput {
 	display: none;
 	min-width: 50%;
 }
-.GsoTagLine.-is-editing .GsoTagLine-tagsInput { display: inline-block; }
+.GsmTagLine.-is-editing .GsmTagLine-tagsInput { display: inline-block; }
