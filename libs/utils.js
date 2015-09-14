@@ -1,27 +1,34 @@
-'use strict';
+((window) => {
 
-const utils = {
+	'use strict';
 
-	insertAfter(newNode, referenceNode) {
-		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-	},
 
-	unique(array) {
-		const hash = {};
-		const res = [];
+	const utils = {
 
-		for (let i = 0; i < array.length; i++) {
-			const item = array[i];
+		insertAfter(newNode, referenceNode) {
+			referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+		},
 
-			if (!hash[item]) {
-				hash[item] = true;
-				res.push(item);
+		unique(array) {
+			const hash = {};
+			const res = [];
+
+			for (let i = 0; i < array.length; i++) {
+				const item = array[i];
+
+				if (!hash[item]) {
+					hash[item] = true;
+					res.push(item);
+				}
 			}
+
+			return res;
 		}
 
-		return res;
-	}
+	};
 
-};
 
-/* jshint unused: false */
+	window.GSO = window.GSO || {};
+	GSO.utils = utils;
+
+})(window);

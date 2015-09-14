@@ -32,7 +32,7 @@
 	"evil": false,
 	"expr": false,
 	"funcscope": false,
-	"globalstrict": true,
+	"globalstrict": false,
 	"iterator": false,
 	"lastsemic": false,
 	"laxbreak": false,
@@ -50,7 +50,7 @@
 
 	"browser": true,
 	"couch": false,
-	"devel": false,
+	"devel": true,
 	"dojo": false,
 	"jquery": false,
 	"mootools": false,
@@ -64,13 +64,6 @@
 
 	"globals": {
 		"chrome": false,
-		"utils": true,
-		"EventEmitter": false,
-		"Model": false,
-		"View": false,
-		"TagsStore": false,
-		"Tags": false,
-		"TagLineView": false,
-		"TagSidebarView": false
+		"GSO": false
 	}
 }

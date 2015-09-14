@@ -1,51 +1,58 @@
-'use strict';
+((window) => {
 
-/**
- * @class View
- */
-class View extends EventEmitter {
+	'use strict';
 
-	constructor() {
-		super();
 
-		this.refs = {
-			root: this.createRootElement()
-		};
+	/**
+	 * @class View
+	 */
+	class View extends GSO.EventEmitter {
 
-		this.handlers = {};
-	}
+		constructor() {
+			super();
 
-	static getRootClass() {
-		// override this method
-		return '';
-	}
+			this.refs = {
+				root: this.createRootElement()
+			};
 
-	createRootElement() {
-		const rootElem = document.createElement('div');
-		rootElem.classList.add(this.constructor.getRootClass());
+			this.handlers = {};
+		}
 
-		return rootElem;
-	}
+		static getRootClass() {
+			// override this method
+			return '';
+		}
 
-	render() {
-		// override this method
-	}
+		createRootElement() {
+			const rootElem = document.createElement('div');
+			rootElem.classList.add(this.constructor.getRootClass());
 
-	getElement(selector) {
-		if (typeof selector === 'undefined') {
-			return this.refs.root;
-		} else {
-			return this.refs.root.querySelector(selector);
+			return rootElem;
+		}
+
+		render() {
+			// override this method
+		}
+
+		getElement(selector) {
+			if (typeof selector === 'undefined') {
+				return this.refs.root;
+			} else {
+				return this.refs.root.querySelector(selector);
+			}
+		}
+
+		injectInto(parentElem) {
+			parentElem.appendChild(this.getElement());
+		}
+
+		injectAfter(siblingElem) {
+			GSO.utils.insertAfter(this.getElement(), siblingElem);
 		}
 	}
 
-	injectInto(parentElem) {
-		parentElem.appendChild(this.getElement());
-	}
 
-	injectAfter(siblingElem) {
-		utils.insertAfter(this.getElement(), siblingElem);
-	}
-}
+	window.GSO = window.GSO || {};
+	GSO.View = View;
 
-/* jshint unused: false */
+})(window);

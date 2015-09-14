@@ -1,11 +1,11 @@
-'use strict';
 
 init();
 
 
 function init() {
+	'use strict';
 
-	const tagsStore = new TagsStore();
+	const tagsStore = new GSO.TagsStore();
 
 	tagsStore.get()
 		.then(createModel)
@@ -14,7 +14,7 @@ function init() {
 
 
 	function createModel(data) {
-		return new Tags(data);
+		return new GSO.Tags(data);
 	}
 
 	function initViews(tagsModel) {
@@ -46,7 +46,7 @@ function init() {
 
 				function addTagLine(starredRepoElem) {
 					const repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
-					const view = new TagLineView(model, repoId);
+					const view = new GSO.TagLineView(model, repoId);
 					view.render();
 					view.injectInto(starredRepoElem);
 				}
@@ -57,7 +57,7 @@ function init() {
 				Array.from(starredRepoElems).forEach(starredRepoElem => removeTagLine(starredRepoElem));
 
 				function removeTagLine(starredRepoElem) {
-					const oldTagLineElem = starredRepoElem.querySelector('.' + TagLineView.getRootClass());
+					const oldTagLineElem = starredRepoElem.querySelector('.' + GSO.TagLineView.getRootClass());
 					if (oldTagLineElem) { oldTagLineElem.remove(); }
 				}
 			}
@@ -83,13 +83,13 @@ function init() {
 
 			function addSidebar() {
 				const firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
-				const view = new TagSidebarView(model);
+				const view = new GSO.TagSidebarView(model);
 				view.render();
 				view.injectAfter(firstSidebarSeparatorElem);
 			}
 
 			function removeSidebar() {
-				const oldTagSidebarElem = ajaxContentElem.querySelector('.' + TagSidebarView.getRootClass());
+				const oldTagSidebarElem = ajaxContentElem.querySelector('.' + GSO.TagSidebarView.getRootClass());
 				if (oldTagSidebarElem) { oldTagSidebarElem.remove(); }
 			}
 		}

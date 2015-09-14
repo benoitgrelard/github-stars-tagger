@@ -1,16 +1,23 @@
-'use strict';
+((window) => {
 
-/**
- * @class Model
- */
-class Model extends EventEmitter {
+	'use strict';
 
-	constructor(data) {
-		super();
 
-		this.data = data;
+	/**
+	 * @class Model
+	 */
+	class Model extends GSO.EventEmitter {
+
+		constructor(data) {
+			super();
+
+			this.data = data;
+		}
+
 	}
 
-}
 
-/* jshint unused: false */
+	window.GSO = window.GSO || {};
+	GSO.Model = Model;
+
+})(window);
