@@ -1,10 +1,15 @@
 /**
  * Tag line
  */
-.GsmTagLine {}
+.GsmTagLine { position: relative; }
 
 .GsmTagLine-icon {}
 .GsmTagLine--noTags .GsmTagLine-icon { opacity: 0.5; }
+.GsmTagLine.-is-editing .GsmTagLine-icon {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
 
 .GsmTagLine-tags {}
 .GsmTagLine.-is-editing .GsmTagLine-tags { display: none; }
@@ -33,6 +38,7 @@
 
 .GsmTagLine-tagsInput {
 	display: none;
-	min-width: 50%;
+	width: 400px;
+	padding-left: 25px !important;
 }
 .GsmTagLine.-is-editing .GsmTagLine-tagsInput { display: inline-block; }

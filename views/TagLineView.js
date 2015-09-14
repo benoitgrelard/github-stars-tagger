@@ -37,10 +37,10 @@
 			this.getElement().classList.toggle(noTagsModifierClass, !tags);
 			this.getElement().innerHTML = `
 				<span class="octicon octicon-tag GsmTagLine-icon"></span>
-				<span class="GsmTagLine-tags">${ tags || 'no tags' }</span>
+				<span class="GsmTagLine-tags">${ tags }</span>
 				<span class="GsmTagLine-separator"> — </span>
 				<button class="GsmTagLine-editButton" type="button" title="Click to edit">Edit</button>
-				<input class="GsmTagLine-tagsInput" type="text" value="${ tags }" placeholder="Enter comma-separated tags..." spellcheck="false" autocomplete="off" />
+				<input class="GsmTagLine-tagsInput" type="text" value="${ tags }" placeholder="Enter comma-separated tags" spellcheck="false" autocomplete="off" />
 			`;
 
 			this.refs.editButton = this.getElement('.GsmTagLine-editButton');
