@@ -96,7 +96,6 @@
 
 		onClicked(event) {
 			if (event.target && event.target.classList.contains('filter-item')) {
-				console.log('TagSidebar', 'click', 'tag');
 				GSM.utils.track('TagSidebar', 'click', 'tag');
 			}
 		}
