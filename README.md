@@ -1,5 +1,5 @@
-# GitHub Stars Manager
-A Google Chrome extension to manage your starred repositories on GitHub using tags.
+# GitHub Stars Tagger
+A Google Chrome extension that lets you add tags to your starred repositories directly on GitHub.
 
 ## Disclaimer
 Please note that this extension is currently under development and as such hasn't been published to the Chrome Web Store yet.

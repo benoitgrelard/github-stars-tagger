@@ -1,7 +1,7 @@
 {
-	"name": "GitHub Stars Manager",
+	"name": "GitHub Stars Tagger",
 	"version": "0.1.0",
-	"description": "A Google Chrome extension to manage your starred repositories on GitHub using tags",
+	"description": "A Google Chrome extension that lets you add tags to your starred repositories directly on GitHub",
 	"author": "Benoît Grélard",
 	"icons": {},
 	"content_scripts": [
