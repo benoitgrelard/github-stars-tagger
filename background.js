@@ -15,7 +15,8 @@
 
 
 	// init analytics account
-	ga('create', 'UA-5200461-4', 'auto');
+	// ga('create', 'UA-5200461-4', 'auto'); // test account
+	ga('create', 'UA-5200461-5', 'auto'); // prod account
 
 	// Removes failing protocol check. @see: http://stackoverflow.com/a/22152353/1958200
 	ga('set', 'checkProtocolTask', function(){});
