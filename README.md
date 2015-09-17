@@ -1,16 +1,21 @@
-# GitHub Stars Tagger
+# GitHub Stars Tagger (v0.1.0)
 A Google Chrome extension that lets you add tags to your starred repositories directly on GitHub.
 
-## Disclaimer
-Please note that this extension is currently under development and as such hasn't been published to the Chrome Web Store yet.
-Use at your own risks.
+## About
+I built this Chrome extension to fill a gap that has been frustrating me for some time now on GitHub.
+There is currently no way (apart from filtering by language) to categorise/organise the repositories that you have starred.
 
-## Installation
-If you want to install and try this development version please follow the steps below:
+There currently are external solutions to this issue such as [astralapp.com](http://astralapp.com/) (a separate site) or [Oh My Star](http://www.ohmystarapp.com/) (a native application).
 
-* Clone this repository somewhere on your computer
-* Navigate to chrome://extensions in your Chrome browser
-* Enable developer mode by ticking the *"Developer mode"* checkbox on the top right
-* Click on the *"Load unpacked extension..."* button on the top left
-* Point to the folder where you have cloned the repository
-* Enjoy! And please file any issues regarding bugs or enhancements
+However, what I wish is to create an experience as transparent as possible for the users, so that it feels like all the added functionality is native to GitHub's website.
+
+## Limitations
+Currently, the functionality is limited to the `/stars` page but I eventually want to bring a similar experience to individual repository pages.
+
+There is also a hard limitation on the number of repositories you can add tags to (512) as I am using [Chrome storage.sync](https://developer.chrome.com/extensions/storage#property-sync) as a mean to store the data (which is then neatly shared across your different computers).
+
+## Contributing
+Plese see [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+## Licensing
+MIT © 2015 [Benoît Grélard](http://www.artisologic.com)
