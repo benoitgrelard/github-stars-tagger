@@ -14,7 +14,9 @@ However, what I wish is to create an experience as transparent as possible for t
 ## Limitations
 Currently, the functionality is limited to the `/stars` page but I eventually want to bring a similar experience to individual repository pages.
 
-There is also a hard limitation on the number of repositories you can add tags to (512) as I am using [Chrome storage.sync](https://developer.chrome.com/extensions/storage#property-sync) as a mean to store the data (which is then neatly shared across your different computers).
+There is also a hard limitation on the number of repositories you can add tags to which is `512` (should be fine for a while) as I am using [Chrome storage.sync](https://developer.chrome.com/extensions/storage#property-sync) as a mean to store the data (which is then neatly shared across your different computers).
+
+I am tracking this limitation, should an issue arise.
 
 ## Contributing
 Plese see [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
