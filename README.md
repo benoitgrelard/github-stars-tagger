@@ -5,7 +5,9 @@ A Google Chrome extension that lets you add tags to your starred repositories di
 I built this Chrome extension to fill a gap that has been frustrating me for some time now on GitHub.
 There is currently no way (apart from filtering by language) to categorise/organise the repositories that you have starred.
 
-There currently are external solutions to this issue such as [astralapp.com](http://astralapp.com/) (a separate site) or [Oh My Star](http://www.ohmystarapp.com/) (a native application).
+There currently are external solutions to this issue such as:
+* [astralapp.com](http://astralapp.com/): a separate site
+* [Oh My Star](http://www.ohmystarapp.com/): a native application
 
 However, what I wish is to create an experience as transparent as possible for the users, so that it feels like all the added functionality is native to GitHub's website.
 
