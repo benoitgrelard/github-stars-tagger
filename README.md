@@ -11,6 +11,9 @@ There currently are external solutions to this issue such as:
 
 However, what I wish is to create an experience as transparent as possible for the users, so that it feels like all the added functionality is native to GitHub's website.
 
+## Instalation
+To install the extension, simply visit the [Chrome Web Store](https://chrome.google.com/webstore/detail/github-stars-tagger/aaihhjepepgajmehjdmfkofegfddcabc).
+
 ## Limitations
 Currently, the functionality is limited to the `/stars` page but I eventually want to bring a similar experience to individual repository pages.
 
