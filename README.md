@@ -1,4 +1,4 @@
-# GitHub Stars Tagger (v1.0.1)
+# GitHub Stars Tagger (v1.0.2)
 A Google Chrome extension that lets you add tags to your starred repositories directly on GitHub.
 
 ## About

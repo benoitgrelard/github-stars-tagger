@@ -74,7 +74,7 @@
 			function byMostUsed(tagObject1, tagObject2) {
 				const diff = tagObject2.repos.length - tagObject1.repos.length;
 				// default to alphanumerical sort
-				if (diff === 0) { return tagObject2.name < tagObject1.name; }
+				if (diff === 0) { return tagObject2.name < tagObject1.name ? 1 : -1; }
 				return diff;
 			}
 		}
