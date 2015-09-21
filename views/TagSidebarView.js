@@ -24,10 +24,15 @@
 			}
 
 			const sortedTags = this.model.byTagSortedByUse();
+			const tagsCount = sortedTags.length;
+			const tagsCountIndicator = tagsCount ? `<span class="count">${ tagsCount }</span>` : '';
 
 			this.getElement().innerHTML = `
-				<h3>Filter by tags</h3>
-				<ul class="filter-list small">
+				<h3>
+					Filter by tags
+					${ tagsCountIndicator }
+				</h3>
+				<ul class="filter-list small GsmTagSidebar-tagList">
 					${ this.renderTags(sortedTags) }
 				</ul>
 				<hr />
