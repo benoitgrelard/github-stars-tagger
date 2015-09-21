@@ -3,11 +3,24 @@
  */
 .GsmTagSidebar {}
 
-.GsmTagSidebar-noTagsMessage {}
+.GsmTagSidebar h3 .count {
+	float: right;
+	margin-right: 10px;
+}
+
+.GsmTagSidebar-noTagsMessage { margin-bottom: 15px !important; }
 .GsmTagSidebar-noTagsMessage:hover {
 	background-color: transparent !important;
 	cursor: auto;
 }
+
+.GsmTagSidebar-tagList {
+	max-height: 19.2em;
+	overflow: auto;
+}
+.GsmTagSidebar-tagList > li:last-child { margin-bottom: 15px; }
+
+.GsmTagSidebar-tagList + hr { margin-top: 0; }
 
 .GsmTagSidebar-label {
 	font-size: inherit;
