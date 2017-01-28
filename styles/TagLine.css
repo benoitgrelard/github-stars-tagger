@@ -1,7 +1,13 @@
 /**
  * Tag line
  */
-.GsmTagLine { position: relative; }
+.GsmTagLine {
+  position: relative;
+  font-size: 12px !important;
+  margin-top: 8px !important;
+  color: #767676 !important;
+
+}
 
 .GsmTagLine-icon {}
 .GsmTagLine--noTags .GsmTagLine-icon { opacity: 0.5; }

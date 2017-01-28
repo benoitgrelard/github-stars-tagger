@@ -25,6 +25,8 @@ function init() {
 
 
 		function initTagLines(model) {
+			const rootSelector = '.js-repo-filter';
+
 			// on page load
 			addTagLines();
 
@@ -41,11 +43,11 @@ function init() {
 			}
 
 			function addTagLines() {
-				const starredRepoElems = document.querySelectorAll('.repo-list-item');
+				const starredRepoElems = document.querySelectorAll(rootSelector + ' > .d-block');
 				Array.from(starredRepoElems).forEach(starredRepoElem => addTagLine(starredRepoElem));
 
 				function addTagLine(starredRepoElem) {
-					const repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
+					const repoId = starredRepoElem.querySelector('h3 a').getAttribute('href').substr(1); 
 					const view = new GSM.TagLineView(model, repoId);
 					view.render();
 					view.injectInto(starredRepoElem);
@@ -53,7 +55,7 @@ function init() {
 			}
 
 			function removeTagLines() {
-				const starredRepoElems = document.querySelectorAll('.repo-list-item');
+				const starredRepoElems = document.querySelectorAll(rootSelector);
 				Array.from(starredRepoElems).forEach(starredRepoElem => removeTagLine(starredRepoElem));
 
 				function removeTagLine(starredRepoElem) {
@@ -82,10 +84,10 @@ function init() {
 			}
 
 			function addSidebar() {
-				const firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
+				const firstSidebarSeparatorElem = ajaxContentElem.querySelector('#js-pjax-container > div > div:first-child');
 				const view = new GSM.TagSidebarView(model);
 				view.render();
-				view.injectAfter(firstSidebarSeparatorElem);
+				view.injectInto(firstSidebarSeparatorElem);
 			}
 
 			function removeSidebar() {
@@ -99,8 +101,8 @@ function init() {
 
 			const observer = new MutationObserver(mutations => {
 				mutations.forEach(mutation => {
-					if (mutation.addedNodes.length > 0) {
-						callback(document.location.pathname);
+					if (mutation.addedNodes.length > 0) { 
+						callback(document.location.search);
 					}
 				});
 			});
@@ -110,7 +112,7 @@ function init() {
 		}
 
 		function isCurrentPathSupported(path) {
-			return path === '/stars' || path === '/stars/' || Boolean(path.match(/\/stars\/?\?.+/));
+			return path.indexOf('tab=stars') !== -1;
 		}
 	}
 
