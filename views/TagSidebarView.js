@@ -2,7 +2,6 @@
 
 	'use strict';
 
-
 	/**
 	 * @class TagSidebarView
 	 */
@@ -28,14 +27,13 @@
 			const tagsCountIndicator = tagsCount ? `<span class="count">${ tagsCount }</span>` : '';
 
 			this.getElement().innerHTML = `
-				<h3>
+				<h2 class="mb-1 h4">
 					Filter by tags
 					${ tagsCountIndicator }
-				</h3>
+				</h2>
 				<ul class="filter-list small GsmTagSidebar-tagList">
 					${ this.renderTags(sortedTags) }
 				</ul>
-				<hr />
 			`;
 
 			this.addEvents();

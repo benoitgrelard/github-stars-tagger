@@ -14,9 +14,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://github.com/stars",
-				"https://github.com/stars/",
-				"https://github.com/stars?*"
+				"https://github.com/*tab=stars*"
 			],
 			"js": [
 				"libs/utils.js",

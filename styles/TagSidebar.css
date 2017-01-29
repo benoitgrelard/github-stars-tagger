@@ -1,9 +1,13 @@
 /**
  * Tag sidebar
  */
-.GsmTagSidebar {}
+.GsmTagSidebar {
+  border-top: 1px #e5e5e5 solid;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
 
-.GsmTagSidebar h3 .count {
+.GsmTagSidebar h2 .count {
 	float: right;
 	margin-right: 10px;
 }
@@ -25,6 +29,19 @@
 .GsmTagSidebar-label {
 	font-size: inherit;
 	font-weight: inherit;
+}
+
+.GsmTagSidebar-label span.filter-item {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: inline-block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  vertical-align: top !important;
+  padding-left: 0 !important;
+  font-size: 14px !important;
+  padding-top: 4px !important;
 }
 
 .GsmTagSidebar-checkbox {
