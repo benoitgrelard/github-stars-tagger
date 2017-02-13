@@ -3,17 +3,17 @@
  */
 .GsmTagLine { position: relative; }
 
-.GsmTagLine-icon {}
-.GsmTagLine--noTags .GsmTagLine-icon { opacity: 0.5; }
+.GsmTagLine-icon { color: currentColor; }
+.GsmTagLine--noTags .GsmTagLine-icon { opacity: 0.35; }
 .GsmTagLine.-is-editing .GsmTagLine-icon {
 	position: absolute;
-	top: 8px;
-	left: 8px;
+	top: 7px;
+	left: 7px;
 }
 
 .GsmTagLine-tags {}
 .GsmTagLine.-is-editing .GsmTagLine-tags { display: none; }
-.GsmTagLine--noTags .GsmTagLine-tags { opacity: 0.5; }
+.GsmTagLine--noTags .GsmTagLine-tags { opacity: 0.35; }
 
 .GsmTagLine-separator { opacity: 0.35; }
 .GsmTagLine.-is-editing .GsmTagLine-separator { display: none; }
@@ -25,7 +25,7 @@
 
 	background-color: transparent;
 	border: none;
-	opacity: 0.5;
+	opacity: 0.35;
 	outline: none;
 
 	-webkit-appearance: none;
