@@ -48,14 +48,13 @@
 	margin: 0 0 2px;
 
 	font-size: 12px;
-
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 .GsmRepoList-item a {
 	display: block;
+
+	/* derived from github's 1/4th column width: 230px - 10px (padding-left) - 10px (padding-right) */
+	max-width: 210px !important;
 }
 
 .GsmTagSidebar-checkbox:checked + .GsmRepoList {

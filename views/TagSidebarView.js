@@ -28,7 +28,7 @@
 			const tagsCountIndicator = tagsCount ? `<span class="count">${ tagsCount }</span>` : '';
 
 			this.getElement().innerHTML = `
-				<h3>
+				<h3 class="h4 mb-2">
 					Filter by tags
 					${ tagsCountIndicator }
 				</h3>
@@ -72,8 +72,8 @@
 
 		renderTagRepo(repoId) {
 			return `
-				<li class="GsmRepoList-item">
-					<a href="/${ repoId }">${ repoId }</a>
+				<li class="GsmRepoList-item css-truncate">
+					<a class="css-truncate-target" href="/${ repoId }">${ repoId }</a>
 				</li>
 			`;
 		}

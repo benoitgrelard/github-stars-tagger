@@ -25,6 +25,8 @@ function init() {
 
 
 		function initTagLines(model) {
+			const repoItemSelector = '.repo-list > li';
+
 			// on page load
 			addTagLines();
 
@@ -41,11 +43,11 @@ function init() {
 			}
 
 			function addTagLines() {
-				const starredRepoElems = document.querySelectorAll('.repo-list-item');
+				const starredRepoElems = document.querySelectorAll(repoItemSelector);
 				Array.from(starredRepoElems).forEach(starredRepoElem => addTagLine(starredRepoElem));
 
 				function addTagLine(starredRepoElem) {
-					const repoId = starredRepoElem.querySelector('.repo-list-name a').getAttribute('href').substring(1);
+					const repoId = starredRepoElem.querySelector('h3 a').getAttribute('href').substring(1);
 					const view = new GSM.TagLineView(model, repoId);
 					view.render();
 					view.injectInto(starredRepoElem);
@@ -53,7 +55,7 @@ function init() {
 			}
 
 			function removeTagLines() {
-				const starredRepoElems = document.querySelectorAll('.repo-list-item');
+				const starredRepoElems = document.querySelectorAll(repoItemSelector);
 				Array.from(starredRepoElems).forEach(starredRepoElem => removeTagLine(starredRepoElem));
 
 				function removeTagLine(starredRepoElem) {
