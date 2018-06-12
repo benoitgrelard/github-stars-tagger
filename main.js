@@ -66,7 +66,7 @@ function init() {
 		}
 
 		function initTagSidebar(model) {
-			const ajaxContentElem = document.getElementById('js-pjax-container');
+			const ajaxContentElem = document.querySelector('.explore-pjax-container');
 
 			// on page load
 			addSidebar();
@@ -84,7 +84,7 @@ function init() {
 			}
 
 			function addSidebar() {
-				const firstSidebarSeparatorElem = ajaxContentElem.querySelector('.column.one-fourth hr:first-of-type');
+				const firstSidebarSeparatorElem = ajaxContentElem.querySelector('.col-md-3 hr:first-of-type');
 				const view = new GSM.TagSidebarView(model);
 				view.render();
 				view.injectAfter(firstSidebarSeparatorElem);
@@ -97,7 +97,7 @@ function init() {
 		}
 
 		function addAjaxPageRefreshEventListener(callback) {
-			const ajaxContentElem = document.getElementById('js-pjax-container');
+			const ajaxContentElem = document.querySelector('.explore-pjax-container');
 
 			const observer = new MutationObserver(mutations => {
 				mutations.forEach(mutation => {
